@@ -3,6 +3,9 @@ import HomePage from "./pages/Home/HomePage";
 import SignupPage from "./pages/Signup/SignupPage";
 import SigninPage from "./pages/Signin/SigninPage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
+import { Box, ThemeProvider } from "@mui/material";
+import Navbar from "./component/navbar/Navbar";
+import theme from "./theme";
 
 const router = [
   {
@@ -25,13 +28,26 @@ const router = [
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {router.map(({ path, component: Component }) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+          }}
+        >
+          <Navbar />
+          <Box sx={{ flexGrow: 1, overflowX: "hidden" }}>
+            <Routes>
+              {router.map(({ path, component: Component }) => (
+                <Route key={path} path={path} element={<Component />} />
+              ))}
+            </Routes>
+          </Box>
+        </Box>
+      </Router>
+    </ThemeProvider>
   );
 };
 
