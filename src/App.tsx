@@ -6,6 +6,7 @@ import NotFoundPage from "./pages/NotFound/NotFoundPage";
 import { Box, ThemeProvider } from "@mui/material";
 import Navbar from "./component/navbar/Navbar";
 import theme from "./theme";
+import Footer from "./component/footer/Footer";
 
 const router = [
   {
@@ -45,6 +46,7 @@ const App = () => {
               ))}
             </Routes>
           </Box>
+          <Footer />
         </Box>
       </Router>
     </ThemeProvider>
