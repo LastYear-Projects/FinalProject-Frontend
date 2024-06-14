@@ -1,7 +1,10 @@
 import * as React from "react";
-import { Button, Box, useTheme } from "@mui/material/";
 import { NavLink, useLocation } from "react-router-dom";
+
+import { Button, Box, useTheme } from "@mui/material/";
+
 import css from "./styles.module.css";
+
 export type MdNavbarProps = {
   pages: {
     title: string;
@@ -51,7 +54,6 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
                 onClick={handleCloseNavMenu}
                 className={pathname === path ? css["selected"] : ""}
                 sx={{
-                  textTransform: "none",
                   my: 2,
                   display: "block",
                   color: theme.palette.text.primary,

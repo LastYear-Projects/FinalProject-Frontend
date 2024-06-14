@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Container,
+  useTheme,
 } from "@mui/material/";
 
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
@@ -23,6 +24,7 @@ export type SignUpType = {
 };
 
 const SignUpPage = () => {
+  const theme = useTheme();
   const [formData, setFormData] = useState<SignUpType>({
     firstName: "",
     lastName: "",
@@ -57,8 +59,8 @@ const SignUpPage = () => {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+        <Avatar sx={{ m: 1, bgcolor: theme.palette.background.default }}>
+          <LockOutlinedIcon sx={{ color: "white" }} />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -132,13 +134,21 @@ const SignUpPage = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{
+              mt: 3,
+              mb: 2,
+            }}
           >
             Sign Up
           </Button>
           <Grid container justifyContent="flex-start">
             <Grid item>
-              <NavLink to="/signin">Already have an account? Sign in</NavLink>
+              <NavLink
+                style={{ color: theme.palette.secondary.main }}
+                to="/signin"
+              >
+                Already have an account? Sign in
+              </NavLink>
             </Grid>
           </Grid>
         </Box>

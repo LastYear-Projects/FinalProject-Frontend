@@ -13,6 +13,7 @@ import {
 import XsNavbar from "./XsNavbar";
 import MdNavbar from "./MdNavbar";
 import DropDownMenu from "./DropDownMenu";
+
 import css from "./styles.module.css";
 
 const pages = [{ title: "Home", path: "/" }];
@@ -50,7 +51,6 @@ const Navbar = () => {
                 <Button
                   className={pathname === "/signin" ? css["selected"] : ""}
                   sx={{
-                    textTransform: "none",
                     my: 2,
                     display: "block",
                     color: theme.palette.text.primary,
@@ -64,7 +64,6 @@ const Navbar = () => {
                 <Button
                   className={pathname === "/signup" ? css["selected"] : ""}
                   sx={{
-                    textTransform: "none",
                     my: 2,
                     display: "block",
                     color: theme.palette.text.primary,

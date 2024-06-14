@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Container,
+  useTheme,
 } from "@mui/material";
 
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
@@ -20,6 +21,7 @@ export type SignInType = {
 };
 
 export default function SignIn() {
+  const theme = useTheme();
   const [formData, setFormData] = useState<SignInType>({
     email: "",
     password: "",
@@ -49,8 +51,8 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
+        <Avatar sx={{ m: 1, bgcolor: theme.palette.background.default }}>
+          <LockOutlinedIcon sx={{ color: "white" }} />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -84,16 +86,26 @@ export default function SignIn() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{
+              mt: 3,
+              mb: 2,
+            }}
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item xs>
-              <NavLink to="/">Forgot password?</NavLink>
+              <NavLink style={{ color: theme.palette.secondary.main }} to="/">
+                Forgot password?
+              </NavLink>
             </Grid>
             <Grid item>
-              <NavLink to="/signup">Don't have an account? Sign Up</NavLink>
+              <NavLink
+                style={{ color: theme.palette.secondary.main }}
+                to="/signup"
+              >
+                Don't have an account? Sign Up
+              </NavLink>
             </Grid>
           </Grid>
         </Box>

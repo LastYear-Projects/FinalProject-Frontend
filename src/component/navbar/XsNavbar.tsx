@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 
 import {
   MenuItem,
@@ -10,7 +11,6 @@ import {
 } from "@mui/material/";
 
 import { Menu as MenuIcon } from "@mui/icons-material/";
-import { NavLink } from "react-router-dom";
 
 export type XsNavbarProps = {
   pages: {

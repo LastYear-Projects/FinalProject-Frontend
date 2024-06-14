@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router";
 import {
   Avatar,
   Tooltip,
@@ -9,7 +10,6 @@ import {
   Menu,
   useTheme,
 } from "@mui/material/";
-import { useNavigate } from "react-router";
 
 export type DropDownMenu = {
   settings: {
