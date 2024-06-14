@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
-import { Button, Box, useTheme } from "@mui/material/";
+import { Button, Box, styled } from "@mui/material/";
 
 import css from "./styles.module.css";
 
@@ -12,8 +12,30 @@ export type MdNavbarProps = {
   }[];
 };
 
+const BoxContainer = styled(Box)(({ theme }) => ({
+  display: "none",
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+  },
+}));
+
+const BoxContent = styled(Box)(({ theme }) => ({
+  marginLeft: "0.25rem",
+  flexGrow: 1,
+  display: "none",
+  [theme.breakpoints.up("md")]: {
+    display: "flex",
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  my: 2,
+  display: "block",
+  color: theme.palette.text.primary,
+  fontWeight: theme.typography.fontWeightBold,
+}));
+
 const MdNavbar = ({ pages }: MdNavbarProps) => {
-  const theme = useTheme();
   const { pathname } = useLocation();
   const [, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -23,11 +45,7 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: { xs: "none", md: "flex" },
-        }}
-      >
+      <BoxContainer>
         <img
           style={{
             cursor: "pointer",
@@ -38,33 +56,21 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
           src="../../../assets/SwipeAdvisor.jpg"
           width="100px"
         />
-      </Box>
-      <Box
-        sx={{
-          marginLeft: "0.25rem",
-          flexGrow: 1,
-          display: { xs: "none", md: "flex" },
-        }}
-      >
+      </BoxContainer>
+      <BoxContent>
         {pages &&
           pages.map(({ title, path }) => (
             <NavLink key={path} to={path} style={{ textDecoration: "none" }}>
-              <Button
+              <StyledButton
                 key={path}
                 onClick={handleCloseNavMenu}
                 className={pathname === path ? css["selected"] : ""}
-                sx={{
-                  my: 2,
-                  display: "block",
-                  color: theme.palette.text.primary,
-                  fontWeight: theme.typography.fontWeightBold,
-                }}
               >
                 {title}
-              </Button>
+              </StyledButton>
             </NavLink>
           ))}
-      </Box>
+      </BoxContent>
     </>
   );
 };

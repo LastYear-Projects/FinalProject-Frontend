@@ -8,6 +8,7 @@ import {
   Typography,
   Menu,
   useTheme,
+  styled,
 } from "@mui/material/";
 
 import { Menu as MenuIcon } from "@mui/icons-material/";
@@ -18,6 +19,14 @@ export type XsNavbarProps = {
     path: string;
   }[];
 };
+
+const BoxContainer = styled(Box)(({ theme }) => ({
+  flexGrow: 1,
+  display: "flex",
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
+}));
 
 const XsNavbar = ({ pages }: XsNavbarProps) => {
   const theme = useTheme();
@@ -35,12 +44,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
 
   return (
     <>
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: { xs: "flex", md: "none" },
-        }}
-      >
+      <BoxContainer>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -92,13 +96,8 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
               </NavLink>
             ))}
         </Menu>
-      </Box>
-      <Box
-        sx={{
-          flexGrow: 1,
-          display: { xs: "flex", md: "none" },
-        }}
-      >
+      </BoxContainer>
+      <BoxContainer>
         <img
           style={{
             cursor: "pointer",
@@ -110,7 +109,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
           width="100px"
           height="85px"
         />
-      </Box>
+      </BoxContainer>
     </>
   );
 };
