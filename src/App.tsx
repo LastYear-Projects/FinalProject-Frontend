@@ -7,11 +7,17 @@ import { Box, ThemeProvider } from "@mui/material";
 import Navbar from "./component/navbar/Navbar";
 import theme from "./theme";
 import Footer from "./component/footer/Footer";
+import ProfilePage from "./pages/Profile/ProfilePage";
 
+// TODO -> Make all the routes except the SignIn/SignUp page private.
 const router = [
   {
     path: "/",
     component: HomePage,
+  },
+  {
+    path: "/profile", //TODO -> add /profile/:id and get the id from the url.
+    component: ProfilePage,
   },
   {
     path: "/signup",

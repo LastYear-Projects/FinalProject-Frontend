@@ -1,10 +1,13 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 
-const COLORS = {
+export const COLORS = {
   PRIMARY: '#000000',
   SECONDARY: '#5a5a5a',
   BACKGROUND: '#9A9A9A',
   TEXT_ON_HOVER_BUTTON: "#ffffff",
+  SUCCESS: '#4caf50',
+  ERROR: '#f44336',
+  WARNING: '#ff9800',
 }
 
 const STYLES = {
