@@ -4,6 +4,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
   textAlign: "center",
   padding: "0.7rem",
+  marginTop: "1rem",
 }));
 
 const Footer = () => {

@@ -11,19 +11,50 @@ import {
   Typography,
   styled,
   useTheme,
+  Grid,
 } from "@mui/material";
 import { COLORS } from "../../theme";
+import CreditCard from "../../component/creditCard/CreditCard";
+
+type CreditCardType = {
+  cardName: string;
+  background: string;
+  textColor: string;
+};
 
 type UserData = {
   FullName: string;
   Phone: string;
   Email: string;
+  CreditCards?: CreditCardType[];
 };
 
 const userData: UserData = {
   FullName: "Idan Asayag",
   Phone: "0525394768",
   Email: "idanasayag0@gmail.com",
+  CreditCards: [
+    {
+      cardName: "Master Card",
+      background: "#1976d2",
+      textColor: "#fff",
+    },
+    {
+      cardName: "Visa",
+      background: "#ef6c00",
+      textColor: "#fff",
+    },
+    {
+      cardName: "American Express",
+      background: "#ff5252",
+      textColor: "#fff",
+    },
+    {
+      cardName: "חבר",
+      background: "#4caf50",
+      textColor: "#fff",
+    },
+  ],
 };
 
 const BoxContainer = styled(Box)({
@@ -76,60 +107,78 @@ const ProfilePage = () => {
         {"Profile Page"}
       </Typography>
       <Box>
-        {Object.entries(data).map(([key, value]) => (
-          <BoxContent key={key}>
-            <Typography
-              variant="body1"
-              sx={{
-                fontWeight: theme.typography.fontWeightBold,
-                minWidth: "100px",
-              }}
-            >
-              {key}:
-            </Typography>
-            {isEditing ? (
-              <TextField
-                name={key}
-                onChange={onChange}
-                value={newData[key as keyof UserData]}
-              />
-            ) : (
-              <Typography
-                variant="body1"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
-                {value}
-              </Typography>
-            )}
-            {isEditing ? (
-              <Box>
-                <IconButton edge="end" onClick={handleCancelEdit}>
-                  <CancelIcon sx={{ color: COLORS.ERROR }} />
-                </IconButton>
-                <IconButton edge="end" onClick={handleSaveNewData}>
-                  <SaveIcon sx={{ color: COLORS.SUCCESS }} />
-                </IconButton>
-              </Box>
-            ) : (
-              <IconButton edge="end" onClick={() => setIsEditing(true)}>
-                <EditIcon />
-              </IconButton>
-            )}
-          </BoxContent>
-        ))}
+        {Object.entries(data).map(
+          ([key, value]) =>
+            key !== "CreditCards" && (
+              <BoxContent key={key}>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontWeight: theme.typography.fontWeightBold,
+                    minWidth: "100px",
+                  }}
+                >
+                  {key}:
+                </Typography>
+                {isEditing ? (
+                  <TextField
+                    name={key}
+                    onChange={onChange}
+                    value={newData[key as keyof UserData]}
+                  />
+                ) : (
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      flexGrow: 1,
+                    }}
+                  >
+                    {typeof value === "string" ? value : ""}
+                  </Typography>
+                )}
+                {isEditing ? (
+                  <Box>
+                    <IconButton edge="end" onClick={handleCancelEdit}>
+                      <CancelIcon sx={{ color: COLORS.ERROR }} />
+                    </IconButton>
+                    <IconButton edge="end" onClick={handleSaveNewData}>
+                      <SaveIcon sx={{ color: COLORS.SUCCESS }} />
+                    </IconButton>
+                  </Box>
+                ) : (
+                  <IconButton edge="end" onClick={() => setIsEditing(true)}>
+                    <EditIcon />
+                  </IconButton>
+                )}
+              </BoxContent>
+            )
+        )}
       </Box>
       <Box>
         <Typography
           variant="h6"
           sx={{
             fontWeight: theme.typography.fontWeightBold,
-            marginTop: "1.5rem",
+            margin: "1.5rem",
+            textAlign: "center",
           }}
         >
           {"Credit Cards"}
         </Typography>
+        <Grid container spacing={2}>
+          {data.CreditCards?.map((card, index) => (
+            <Grid
+              item
+              xs={12}
+              md={4}
+              key={card.cardName + index}
+              display="flex"
+              justifyContent="center"
+            >
+              <CreditCard {...card} />
+            </Grid>
+          ))}
+        </Grid>
       </Box>
     </BoxContainer>
   );
