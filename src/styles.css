@@ -2,3 +2,21 @@
   margin: 0;
   padding: 0;
 }
+
+::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5a5a5a;
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+}

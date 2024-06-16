@@ -1,7 +1,7 @@
-import React from "react";
+import { Typography } from "@mui/material";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return <Typography>HomePage</Typography>;
 };
 
 export default HomePage;
