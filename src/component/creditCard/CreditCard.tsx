@@ -1,13 +1,8 @@
-import { Box, Typography, styled } from "@mui/material";
-
-type CreditCardProps = {
-  cardName: string;
-  background: string;
-  textColor: string;
-};
+import { Add as AddIcon, Cancel as CancelIcon } from "@mui/icons-material";
+import { Box, IconButton, Typography, styled } from "@mui/material";
 
 const BoxContainer = styled(Box)<{ background: string; textColor: string }>(
-  ({ theme, background, textColor }) => ({
+  ({ background, textColor }) => ({
     width: "18rem",
     height: "11.25rem",
     backgroundColor: background,
@@ -18,6 +13,7 @@ const BoxContainer = styled(Box)<{ background: string; textColor: string }>(
     justifyContent: "space-between",
     color: textColor,
     fontFamily: "Arial, sans-serif",
+    position: "relative",
   })
 );
 
@@ -31,7 +27,33 @@ const isHebrew = (text: string) => {
   return /[\u0590-\u05FF]/.test(text);
 };
 
-const CreditCard = ({ cardName, background, textColor }: CreditCardProps) => {
+export type CreditCardProps = {
+  cardName: string;
+  background: string;
+  textColor: string;
+  cardId: number;
+  cancelButton?: boolean;
+  addButton?: boolean;
+};
+
+const CreditCard = ({
+  cardName,
+  background,
+  textColor,
+  cardId,
+  cancelButton = false,
+  addButton = false,
+}: CreditCardProps) => {
+  const handleRemoveCard = (cardId: number) => {
+    //TODO -> remove from the db and from the user card list.
+    console.log(`${cardId} Removed`);
+  };
+
+  const handleAddCard = (cardId: number) => {
+    //TODO -> add the card to the db and to the user card list.
+    console.log(`${cardId} Added`);
+  };
+
   return (
     <BoxContainer background={background} textColor={textColor}>
       <Typography
@@ -39,6 +61,7 @@ const CreditCard = ({ cardName, background, textColor }: CreditCardProps) => {
         sx={{
           fontWeight: "bold",
           textAlign: isHebrew(cardName) ? "right" : "left",
+          marginRight: "0.25rem",
         }}
       >
         {cardName}
@@ -47,9 +70,23 @@ const CreditCard = ({ cardName, background, textColor }: CreditCardProps) => {
         {"**** **** **** 0123"}
       </Typography>
       <FlexBox>
-        <Typography variant="body1">{"User Name from token"}</Typography>
+        <Typography variant="body1">
+          {"User Name from token | Nothing"}
+        </Typography>
         <Typography variant="body1">{"0/29"}</Typography>
       </FlexBox>
+      <Box sx={{ position: "absolute", right: 0, top: 0 }}>
+        {cancelButton && (
+          <IconButton onClick={() => handleRemoveCard(cardId)}>
+            <CancelIcon />
+          </IconButton>
+        )}
+        {addButton && (
+          <IconButton onClick={() => handleAddCard(cardId)}>
+            <AddIcon />
+          </IconButton>
+        )}
+      </Box>
     </BoxContainer>
   );
 };

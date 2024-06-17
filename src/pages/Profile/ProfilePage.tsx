@@ -14,19 +14,15 @@ import {
   Grid,
 } from "@mui/material";
 import { COLORS } from "../../theme";
-import CreditCard from "../../component/creditCard/CreditCard";
-
-type CreditCardType = {
-  cardName: string;
-  background: string;
-  textColor: string;
-};
+import CreditCard, {
+  CreditCardProps,
+} from "../../component/creditCard/CreditCard";
 
 type UserData = {
   FullName: string;
   Phone: string;
   Email: string;
-  CreditCards?: CreditCardType[];
+  CreditCards?: CreditCardProps[];
 };
 
 const userData: UserData = {
@@ -38,24 +34,56 @@ const userData: UserData = {
       cardName: "Master Card",
       background: "#1976d2",
       textColor: "#fff",
+      cardId: 1,
     },
     {
       cardName: "Visa",
       background: "#ef6c00",
       textColor: "#fff",
+      cardId: 2,
     },
     {
       cardName: "American Express",
       background: "#ff5252",
       textColor: "#fff",
+      cardId: 3,
     },
     {
       cardName: "חבר",
       background: "#4caf50",
       textColor: "#fff",
+      cardId: 4,
     },
   ],
 };
+
+// TODO -> Fetch all cards without my oun cards.
+const allCards = [
+  {
+    cardName: "New Card",
+    background: "#9436d2",
+    textColor: "#fff",
+    cardId: 5,
+  },
+  {
+    cardName: "New Card",
+    background: "#ba3a18",
+    textColor: "#fff",
+    cardId: 6,
+  },
+  {
+    cardName: "New Card",
+    background: "#af5921",
+    textColor: "#fff",
+    cardId: 7,
+  },
+  {
+    cardName: "כרטיס חדש",
+    background: "#1bac90",
+    textColor: "#fff",
+    cardId: 8,
+  },
+];
 
 const BoxContainer = styled(Box)({
   display: "flex",
@@ -79,6 +107,7 @@ const ProfilePage = () => {
   const [data, setData] = useState(userData);
   const [newData, setNewData] = useState(userData);
   const [isEditing, setIsEditing] = useState(false);
+  const [isCreditCardEditing, setIsCreditCardEditing] = useState(false);
 
   const handleSaveNewData = () => {
     setData(newData);
@@ -159,31 +188,93 @@ const ProfilePage = () => {
         )}
       </Box>
       <Box>
-        <Typography
-          variant="h6"
+        <Box
           sx={{
-            fontWeight: theme.typography.fontWeightBold,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             margin: "1.5rem",
-            textAlign: "center",
+            borderBottom: "1px solid #e0e0e0",
           }}
         >
-          {"Credit Cards"}
-        </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: theme.typography.fontWeightBold,
+            }}
+          >
+            {"Credit Cards"}
+          </Typography>
+          {isCreditCardEditing ? (
+            <IconButton onClick={() => setIsCreditCardEditing(false)}>
+              <CancelIcon />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => setIsCreditCardEditing(true)}>
+              <EditIcon />
+            </IconButton>
+          )}
+        </Box>
         <Grid container spacing={2}>
           {data.CreditCards?.map((card, index) => (
             <Grid
               item
               xs={12}
+              sm={6}
               md={4}
               key={card.cardName + index}
               display="flex"
               justifyContent="center"
             >
-              <CreditCard {...card} />
+              <CreditCard {...card} cancelButton={isCreditCardEditing} />
             </Grid>
           ))}
         </Grid>
       </Box>
+      {isCreditCardEditing && (
+        <Box>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: theme.typography.fontWeightBold,
+              margin: "1.5rem",
+              borderBottom: "1px solid #e0e0e0",
+              width: "100%",
+              textAlign: "center",
+            }}
+          >
+            Add New Cards
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Grid container spacing={2}>
+              {allCards.map((card, index) => {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    display="flex"
+                    justifyContent="center"
+                  >
+                    <CreditCard
+                      key={card.cardName + index}
+                      {...card}
+                      addButton={true}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
+        </Box>
+      )}
     </BoxContainer>
   );
 };
