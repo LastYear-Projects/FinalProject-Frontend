@@ -131,6 +131,10 @@ const ProfilePage = () => {
                     variant="body1"
                     sx={{
                       flexGrow: 1,
+                      maxWidth: "14rem",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {typeof value === "string" ? value : ""}

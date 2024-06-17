@@ -7,7 +7,7 @@ type CreditCardProps = {
 };
 
 const BoxContainer = styled(Box)<{ background: string; textColor: string }>(
-  ({ background, textColor }) => ({
+  ({ theme, background, textColor }) => ({
     width: "18rem",
     height: "11.25rem",
     backgroundColor: background,
