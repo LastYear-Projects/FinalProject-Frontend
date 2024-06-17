@@ -44,6 +44,7 @@ const themeOptions: ThemeOptions = {
     MuiButton: {
       styleOverrides: {
         root: {
+          color: COLORS.PRIMARY,
           borderRadius: STYLES.BORDER_RADIUS,
           backgroundColor: COLORS.BACKGROUND,
           textTransform: "none",
