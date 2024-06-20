@@ -10,7 +10,7 @@ export const COLORS = {
   WARNING: '#ff9800',
 }
 
-const STYLES = {
+export const STYLES = {
   BORDER_RADIUS: 8,
   FONT_FAMILY: 'Roboto, Arial, sans-serif',
   FONT_WEIGHT_BOLD: 600,
