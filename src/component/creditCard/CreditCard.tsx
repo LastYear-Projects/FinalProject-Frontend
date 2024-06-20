@@ -1,5 +1,6 @@
 import { Add as AddIcon, Cancel as CancelIcon } from "@mui/icons-material";
 import { Box, IconButton, Typography, styled } from "@mui/material";
+import { isHebrew } from "../../utils/utils";
 
 const BoxContainer = styled(Box)<{ background: string; textColor: string }>(
   ({ background, textColor }) => ({
@@ -22,10 +23,6 @@ const FlexBox = styled(Box)({
   justifyContent: "space-between",
   alignItems: "center",
 });
-
-const isHebrew = (text: string) => {
-  return /[\u0590-\u05FF]/.test(text);
-};
 
 export type CreditCardProps = {
   cardName: string;
