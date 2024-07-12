@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import {
   Container,
@@ -13,8 +14,8 @@ import {
 import XsNavbar from "./XsNavbar";
 import MdNavbar from "./MdNavbar";
 import DropDownMenu from "./DropDownMenu";
-
 import css from "./styles.module.css";
+import LanguageSwitcher from "./LanguagteSwitcher";
 
 const pages = [{ title: "Home", path: "/" }];
 const settings = [
@@ -24,7 +25,8 @@ const settings = [
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(false);
+  const { t } = useTranslation();
 
   const theme = useTheme();
   theme.palette.background;
@@ -42,7 +44,7 @@ const Navbar = () => {
           ) : (
             <Box
               sx={{
-                display: "flex",
+                display: { xs: "none", md: "flex" },
                 alignItems: "center",
                 gap: 2,
               }}
@@ -57,7 +59,7 @@ const Navbar = () => {
                     fontWeight: theme.typography.fontWeightBold,
                   }}
                 >
-                  {"Signin"}
+                  {t("SignIn")}
                 </Button>
               </NavLink>
               <NavLink to="/signup" style={{ textDecoration: "none" }}>
@@ -70,11 +72,12 @@ const Navbar = () => {
                     fontWeight: theme.typography.fontWeightBold,
                   }}
                 >
-                  {"Signup"}
+                  {t("SignUp")}
                 </Button>
               </NavLink>
             </Box>
           )}
+          <LanguageSwitcher />
         </Toolbar>
       </Container>
     </AppBar>

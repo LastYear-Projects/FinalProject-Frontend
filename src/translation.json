@@ -1,0 +1,21 @@
+{
+  "Home": ["Home", "בית"],
+  "SignIn": ["SignIn", "התחברות"],
+  "SignUp": ["SignUp", "הרשמה"],
+  "Profile": ["Profile", "פרופיל"],
+  "Logout": ["Logout", "התנתקות"],
+  "Email Address": ["Email Address", "כתובת אימייל"],
+  "First Name": ["First Name", "שם פרטי"],
+  "Last Name": ["Last Name", "שם משפחה"],
+  "Phone": ["Phone", "מספר פלאפון"],
+  "Already have an account? Sign In": [
+    "Already have an account? Sign In",
+    "כבר יש משתמש רשום? התחבר"
+  ],
+  "Password": ["Password", "סיסמה"],
+  "Forgot password?": ["Forgot password?", "שכחתי סיסמה"],
+  "Don't have an account? Sign Up": [
+    "Don't have an account? Sign Up",
+    "אין עדיין משתמש? הירשם עכשיו"
+  ]
+}
