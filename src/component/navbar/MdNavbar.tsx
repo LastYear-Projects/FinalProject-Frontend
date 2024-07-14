@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Button, Box, styled } from "@mui/material/";
 
 import css from "./styles.module.css";
+import { useTranslation } from "react-i18next";
 
 export type MdNavbarProps = {
   pages: {
@@ -36,6 +37,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 const MdNavbar = ({ pages }: MdNavbarProps) => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const [, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -66,7 +68,7 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
                 onClick={handleCloseNavMenu}
                 className={pathname === path ? css["selected"] : ""}
               >
-                {title}
+                {t(title)}
               </StyledButton>
             </NavLink>
           ))}

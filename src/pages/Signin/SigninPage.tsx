@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 export type SignInType = {
   email: string;
@@ -21,6 +22,7 @@ export type SignInType = {
 };
 
 export default function SignIn() {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [formData, setFormData] = useState<SignInType>({
     email: "",
@@ -55,7 +57,7 @@ export default function SignIn() {
           <LockOutlinedIcon sx={{ color: "white" }} />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          {t("SignIn")}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -63,7 +65,7 @@ export default function SignIn() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label={t("Email Address")}
             name="email"
             autoComplete="email"
             autoFocus
@@ -75,7 +77,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={t("Password")}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -91,12 +93,12 @@ export default function SignIn() {
               mb: 2,
             }}
           >
-            Sign In
+            {t("SignIn")}
           </Button>
           <Grid container>
             <Grid item xs>
               <NavLink style={{ color: theme.palette.secondary.main }} to="/">
-                Forgot password?
+                {t("Forgot password?")}
               </NavLink>
             </Grid>
             <Grid item>
@@ -104,7 +106,7 @@ export default function SignIn() {
                 style={{ color: theme.palette.secondary.main }}
                 to="/signup"
               >
-                Don't have an account? Sign Up
+                {t("Don't have an account? Sign Up")}
               </NavLink>
             </Grid>
           </Grid>

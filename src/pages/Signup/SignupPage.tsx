@@ -14,6 +14,7 @@ import {
 } from "@mui/material/";
 
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 export type SignUpType = {
   firstName: string;
@@ -24,6 +25,7 @@ export type SignUpType = {
 };
 
 const SignUpPage = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [formData, setFormData] = useState<SignUpType>({
     firstName: "",
@@ -63,7 +65,7 @@ const SignUpPage = () => {
           <LockOutlinedIcon sx={{ color: "white" }} />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {t("SignUp")}
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -74,7 +76,7 @@ const SignUpPage = () => {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label={t("First Name")}
                 autoFocus
                 onChange={onChange}
                 value={formData.firstName}
@@ -85,7 +87,7 @@ const SignUpPage = () => {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label={t("Last Name")}
                 name="lastName"
                 autoComplete="family-name"
                 onChange={onChange}
@@ -97,7 +99,7 @@ const SignUpPage = () => {
                 required
                 fullWidth
                 id="phone"
-                label="Phone"
+                label={t("Phone")}
                 name="phone"
                 autoComplete="phone"
                 onChange={onChange}
@@ -109,7 +111,7 @@ const SignUpPage = () => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label={t("Email Address")}
                 name="email"
                 autoComplete="email"
                 onChange={onChange}
@@ -121,7 +123,7 @@ const SignUpPage = () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label={t("Password")}
                 type="password"
                 id="password"
                 autoComplete="new-password"
@@ -139,7 +141,7 @@ const SignUpPage = () => {
               mb: 2,
             }}
           >
-            Sign Up
+            {t("SignUp")}
           </Button>
           <Grid container justifyContent="flex-start">
             <Grid item>
@@ -147,7 +149,7 @@ const SignUpPage = () => {
                 style={{ color: theme.palette.secondary.main }}
                 to="/signin"
               >
-                Already have an account? Sign in
+                {t("Already have an account? Sign In")}
               </NavLink>
             </Grid>
           </Grid>

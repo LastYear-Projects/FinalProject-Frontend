@@ -30,6 +30,11 @@ const BoxContainer = styled(Box)(({ theme }) => ({
 
 const XsNavbar = ({ pages }: XsNavbarProps) => {
   const theme = useTheme();
+  const totalPages = [
+    ...pages,
+    { title: "SignIn", path: "/signin" },
+    { title: "SignUp", path: "/signup" },
+  ];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -74,7 +79,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
           }}
         >
           {pages &&
-            pages.map(({ title, path }) => (
+            totalPages.map(({ title, path }) => (
               <NavLink
                 key={path}
                 to={path}
