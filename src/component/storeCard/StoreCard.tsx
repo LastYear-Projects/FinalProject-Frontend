@@ -12,6 +12,7 @@ import {
   Card,
 } from "@mui/material";
 import { isHebrew } from "../../utils/utils";
+import { useNavigate } from "react-router";
 
 const StyledCardContainer = styled(Card)(() => ({
   display: "flex",
@@ -40,6 +41,7 @@ const StoreCard = ({
   id,
 }: StoreCardProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const checkHebrewCss = {
     textAlign: isHebrew(title) ? "right" : "left",
@@ -48,6 +50,7 @@ const StoreCard = ({
 
   const handleClick = () => {
     console.log(`StoreCard ${id} Clicked`);
+    navigate(`/transaction/${id}`);
   };
   return (
     <StyledCardContainer onClick={handleClick}>

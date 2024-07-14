@@ -1,6 +1,6 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import translations from "./translation.json"; // Import the JSON file
+import translations from "./translationLang.json"; // Import the JSON file
 
 i18n.use(initReactI18next).init({
   lng: "en", // Default language

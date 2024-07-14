@@ -17,5 +17,7 @@
   "Don't have an account? Sign Up": [
     "Don't have an account? Sign Up",
     "אין עדיין משתמש? הירשם עכשיו"
-  ]
+  ],
+  "Enter Transaction Price": ["Enter Transaction Price", "הכנס מחיר עסקה"],
+  "Go For It": ["Go For It", "לך על זה"]
 }
