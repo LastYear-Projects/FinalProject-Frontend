@@ -9,6 +9,7 @@ import theme from "./theme";
 import Footer from "./component/footer/Footer";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import PrivateRoute from "./pages/PrivateRoutes/PrivateRoutes";
+import TransactionPage from "./pages/Transaction/TransactionPage";
 
 // TODO -> Make all the routes except the SignIn/SignUp page private.
 const router = [
@@ -20,6 +21,11 @@ const router = [
   {
     path: "/profile", //TODO -> add /profile/:id and get the id from the url.
     component: ProfilePage,
+    isPrivate: true,
+  },
+  {
+    path: "/transaction/:storeId",
+    component: TransactionPage,
     isPrivate: true,
   },
   {
