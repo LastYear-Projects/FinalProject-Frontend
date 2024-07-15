@@ -1,30 +1,42 @@
-import * as React from "react";
+import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 import {
   Box,
   Button,
   CardActionArea,
   styled,
-  useTheme,
   Typography,
   CardMedia,
   CardContent,
   Card,
-} from "@mui/material";
-import { isHebrew } from "../../utils/utils";
-import { useNavigate } from "react-router";
+} from '@mui/material';
+import { isHebrew } from '../../utils/utils';
 
 const StyledCardContainer = styled(Card)(() => ({
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
   width: 345,
+  borderBottomLeftRadius: 16,
+  borderBottomRightRadius: 16,
 }));
 
 const StyledCardContent = styled(CardContent)(() => ({
-  display: "flex",
-  flexDirection: "column",
+  display: 'flex',
+  flexDirection: 'column',
   flexGrow: 1,
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  borderTopLeftRadius: 0,
+  borderTopRightRadius: 0,
+  borderBottomLeftRadius: 16,
+  borderBottomRightRadius: 16,
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.primary.contrastText,
+  textTransform: 'none',
+  fontWeight: theme.typography.fontWeightBold,
 }));
 
 export type StoreCardProps = {
@@ -40,12 +52,11 @@ const StoreCard = ({
   description,
   id,
 }: StoreCardProps) => {
-  const theme = useTheme();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const checkHebrewCss = {
-    textAlign: isHebrew(title) ? "right" : "left",
-    direction: isHebrew(description) ? "rtl" : "ltr",
+    textAlign: isHebrew(title) ? 'right' : 'left',
+    direction: isHebrew(description) ? 'rtl' : 'ltr',
   };
 
   const handleClick = () => {
@@ -56,14 +67,14 @@ const StoreCard = ({
     <StyledCardContainer onClick={handleClick}>
       <CardActionArea
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
         }}
       >
         <CardMedia
-          component="img"
-          height="140"
+          component='img'
+          height='140'
           image={backgroundImage}
           alt={`${title} background image`}
         />
@@ -72,29 +83,25 @@ const StoreCard = ({
             <Typography
               sx={{ ...checkHebrewCss }}
               gutterBottom
-              variant="h5"
-              component="div"
+              variant='h5'
+              component='div'
             >
               {title}
             </Typography>
             <Typography
               sx={{
-                textOverflow: "ellipsis",
-                overflow: "hidden",
+                textOverflow: 'ellipsis',
+                overflow: 'hidden',
                 ...checkHebrewCss,
               }}
-              variant="body2"
-              color="text.secondary"
+              variant='body2'
+              color='text.secondary'
             >
               {description}
             </Typography>
           </Box>
         </StyledCardContent>
-        <Button fullWidth>
-          <Typography sx={{ fontWeight: theme.typography.fontWeightBold }}>
-            {"מעבר לחנות"}
-          </Typography>
-        </Button>
+        <StyledButton fullWidth>{t('Choose Store')}</StyledButton>
       </CardActionArea>
     </StyledCardContainer>
   );

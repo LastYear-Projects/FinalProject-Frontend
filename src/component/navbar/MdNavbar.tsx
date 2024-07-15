@@ -1,10 +1,10 @@
-import * as React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import * as React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
-import { Button, Box, styled } from "@mui/material/";
+import { Button, Box, styled } from '@mui/material/';
 
-import css from "./styles.module.css";
-import { useTranslation } from "react-i18next";
+import css from './styles.module.css';
+import { useTranslation } from 'react-i18next';
 
 export type MdNavbarProps = {
   pages: {
@@ -14,24 +14,24 @@ export type MdNavbarProps = {
 };
 
 const BoxContainer = styled(Box)(({ theme }) => ({
-  display: "none",
-  [theme.breakpoints.up("md")]: {
-    display: "flex",
+  display: 'none',
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
   },
 }));
 
 const BoxContent = styled(Box)(({ theme }) => ({
-  marginLeft: "0.25rem",
+  marginLeft: '0.25rem',
   flexGrow: 1,
-  display: "none",
-  [theme.breakpoints.up("md")]: {
-    display: "flex",
+  display: 'none',
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
   },
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
   my: 2,
-  display: "block",
+  display: 'block',
   color: theme.palette.text.primary,
   fontWeight: theme.typography.fontWeightBold,
 }));
@@ -50,23 +50,23 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
       <BoxContainer>
         <img
           style={{
-            cursor: "pointer",
-            borderRadius: "50%",
-            border: "2px solid white",
+            cursor: 'pointer',
+            borderRadius: '50%',
+            border: '2px solid white',
           }}
-          alt="SwipeAdvisor"
-          src="../../../assets/SwipeAdvisor.jpg"
-          width="100px"
+          alt='SwipeAdvisor'
+          src='../../../assets/SwipeAdvisor.jpg'
+          width='100px'
         />
       </BoxContainer>
       <BoxContent>
         {pages &&
           pages.map(({ title, path }) => (
-            <NavLink key={path} to={path} style={{ textDecoration: "none" }}>
+            <NavLink key={path} to={path} style={{ textDecoration: 'none' }}>
               <StyledButton
                 key={path}
                 onClick={handleCloseNavMenu}
-                className={pathname === path ? css["selected"] : ""}
+                className={pathname === path ? css['selected'] : ''}
               >
                 {t(title)}
               </StyledButton>
