@@ -10,16 +10,23 @@ import {
   CardMedia,
   CardContent,
   Card,
+  Divider,
 } from '@mui/material';
 import { checkHebrewDirection } from '../../utils/utils';
 
-const StyledCardContainer = styled(Card)(() => ({
+const StyledCardContainer = styled(Card)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  height: '100%',
   width: 345,
   borderBottomLeftRadius: 16,
   borderBottomRightRadius: 16,
+  boxShadow: `0px 0px 5px 1px ${theme.palette.background.default}`,
+  border: '1px solid #cecece',
+  transition: 'transform 0.3s ease-in-out',
+  ':hover': {
+    boxShadow: `0px 0px 10px 1px ${theme.palette.background.default}`,
+    transform: 'scale(1.05)',
+  },
 }));
 
 const StyledCardContent = styled(CardContent)(() => ({
@@ -65,14 +72,19 @@ const StoreCard = ({
     <StyledCardContainer onClick={handleClick}>
       <CardActionArea>
         <CardMedia
+          sx={{
+            objectFit: 'fill',
+          }}
           component='img'
           height='140'
           image={businessImage}
           alt={`${title} background image`}
         />
+        <Divider />
         <StyledCardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Typography
+              className='card-header'
               sx={{ ...contentDirection }}
               gutterBottom
               variant='h5'
@@ -81,6 +93,7 @@ const StoreCard = ({
               {title}
             </Typography>
             <Typography
+              className='card-content'
               sx={{
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
