@@ -1,32 +1,31 @@
-import { Box, Grid, styled } from '@mui/material';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Box, Grid, styled, TextField } from '@mui/material';
 import StoreCard from '../../component/storeCard/StoreCard';
 
 const defaultStoreCardData = [
   {
-    backgroundImage: 'https://picsum.photos/200',
+    businessImage: 'https://picsum.photos/200',
     title: 'עברית',
-    description: 'כאן יש תיאור בעברית בשביל לבדוק את הנתונים.',
+    businessCategory: 'ביגוד',
     id: 1,
   },
   {
-    backgroundImage: 'https://picsum.photos/200',
+    businessImage: 'https://picsum.photos/200',
     title: 'Title',
-    description:
-      'Description of the store card data goes here and it can be as long as you want',
+    businessCategory: 'Food',
     id: 2,
   },
   {
-    backgroundImage: 'https://picsum.photos/200',
+    businessImage: 'https://picsum.photos/200',
     title: 'Title',
-    description:
-      'Description of the store card data goes here and it can be as long as you want',
+    businessCategory: 'Category',
     id: 3,
   },
   {
-    backgroundImage: 'https://picsum.photos/200',
+    businessImage: 'https://picsum.photos/200',
     title: 'Title',
-    description:
-      'Description of the store card data goes here and it can be as long as you want',
+    businessCategory: 'Home',
     id: 4,
   },
 ];
@@ -37,31 +36,56 @@ const FlexedBox = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   marginTop: theme.spacing(3),
 }));
-//TODO -> replace with the actual data from DB.
+
 const HomePage = () => {
+  const [filteredData, setFilteredData] = useState(defaultStoreCardData);
+  const { t } = useTranslation();
+
+  const handleFilterData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilteredData(
+      defaultStoreCardData.filter((store) =>
+        store.title
+          .toLowerCase()
+          .includes(event.target.value.toLocaleLowerCase())
+      )
+    );
+  };
+
   return (
-    <FlexedBox>
-      <Grid
-        container
-        rowSpacing={6}
-        columnSpacing={1}
-        sx={{ maxWidth: '85rem' }}
-      >
-        {defaultStoreCardData.map((storeCardData, index) => (
-          <Grid
-            xs={12}
-            sm={6}
-            md={4}
-            lg={4}
-            item
-            key={index}
-            sx={{ display: 'flex', justifyContent: 'center' }}
-          >
-            <StoreCard key={index} {...storeCardData} />
-          </Grid>
-        ))}
-      </Grid>
-    </FlexedBox>
+    <Box
+      gap={3}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <TextField
+        sx={{ width: '10rem' }}
+        id='standard-basic'
+        label={t('Search Store')}
+        variant='standard'
+        onChange={handleFilterData}
+      />
+      <FlexedBox>
+        <Grid
+          container
+          rowSpacing={6}
+          columnSpacing={6}
+          sx={{
+            maxWidth: '85rem',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          {filteredData.map((storeCardData, index) => (
+            <Grid item key={index}>
+              <StoreCard key={index} {...storeCardData} />
+            </Grid>
+          ))}
+        </Grid>
+      </FlexedBox>
+    </Box>
   );
 };
 

@@ -5,6 +5,16 @@ export const isHebrew = (text: string) => {
   return /[\u0590-\u05FF]/.test(text);
 };
 
+export const checkHebrewDirection = (
+  title: string,
+  businessCategory: string
+) => {
+  return {
+    textAlign: isHebrew(title) ? 'right' : 'left',
+    direction: isHebrew(businessCategory) ? 'rtl' : 'ltr',
+  };
+};
+
 export const toastify = ({ type, message, position }: ToastifyProps) => {
   const options: ToastOptions = {
     position,
