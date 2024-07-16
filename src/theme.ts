@@ -2,8 +2,8 @@ import { createTheme, ThemeOptions } from '@mui/material/styles';
 
 export const COLORS = {
   PRIMARY: '#000000',
-  SECONDARY: '#5a5a5a',
-  BACKGROUND: '#9A9A9A',
+  SECONDARY: '#b6b6b6',
+  BACKGROUND: '#cecece',
   TEXT_ON_HOVER_BUTTON: '#ffffff',
   SUCCESS: '#4caf50',
   ERROR: '#f44336',

@@ -1,7 +1,7 @@
 {
   "Home": ["Home", "בית"],
   "Choose Store": ["Choose Store", "מעבר לחנות"],
-  "Search Store": ["Search Store", "חיפוש חנות"],
+  "Search": ["Search", "חיפוש"],
   "Waiting for algorithm result": [
     "Waiting for algorithm result",
     "מחכה לתוצאות האלגוריתם"
