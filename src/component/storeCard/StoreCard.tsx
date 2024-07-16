@@ -11,7 +11,7 @@ import {
   CardContent,
   Card,
 } from '@mui/material';
-import { isHebrew } from '../../utils/utils';
+import { checkHebrewDirection } from '../../utils/utils';
 
 const StyledCardContainer = styled(Card)(() => ({
   display: 'flex',
@@ -40,48 +40,40 @@ const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export type StoreCardProps = {
-  backgroundImage: string;
+  businessImage: string;
   title: string;
-  description: string;
+  businessCategory: string;
   id: number;
 };
 
 const StoreCard = ({
-  backgroundImage,
+  businessImage: businessImage,
   title,
-  description,
+  businessCategory: businessCategory,
   id,
 }: StoreCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const checkHebrewCss = {
-    textAlign: isHebrew(title) ? 'right' : 'left',
-    direction: isHebrew(description) ? 'rtl' : 'ltr',
-  };
+  const contentDirection = checkHebrewDirection(title, businessCategory);
 
   const handleClick = () => {
     console.log(`StoreCard ${id} Clicked`);
     navigate(`/transaction/${id}`);
   };
+
   return (
     <StyledCardContainer onClick={handleClick}>
-      <CardActionArea
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-      >
+      <CardActionArea>
         <CardMedia
           component='img'
           height='140'
-          image={backgroundImage}
+          image={businessImage}
           alt={`${title} background image`}
         />
         <StyledCardContent>
           <Box sx={{ flexGrow: 1 }}>
             <Typography
-              sx={{ ...checkHebrewCss }}
+              sx={{ ...contentDirection }}
               gutterBottom
               variant='h5'
               component='div'
@@ -92,12 +84,12 @@ const StoreCard = ({
               sx={{
                 textOverflow: 'ellipsis',
                 overflow: 'hidden',
-                ...checkHebrewCss,
+                ...contentDirection,
               }}
               variant='body2'
               color='text.secondary'
             >
-              {description}
+              {businessCategory}
             </Typography>
           </Box>
         </StyledCardContent>

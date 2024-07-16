@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 import {
   Avatar,
@@ -11,10 +11,10 @@ import {
   Typography,
   Container,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 
-import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
+import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 export type SignInType = {
   email: string;
@@ -25,16 +25,16 @@ export default function SignIn() {
   const { t } = useTranslation();
   const theme = useTheme();
   const [formData, setFormData] = useState<SignInType>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(formData);
     setFormData({
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     });
   };
 
@@ -44,67 +44,67 @@ export default function SignIn() {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: theme.palette.background.default }}>
-          <LockOutlinedIcon sx={{ color: "white" }} />
+          <LockOutlinedIcon sx={{ color: 'white' }} />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          {t("SignIn")}
+        <Typography component='h1' variant='h5'>
+          {t('SignIn')}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
-            margin="normal"
+            margin='normal'
             required
             fullWidth
-            id="email"
-            label={t("Email Address")}
-            name="email"
-            autoComplete="email"
+            id='email'
+            label={t('Email')}
+            name='email'
+            autoComplete='email'
             autoFocus
             value={formData.email}
             onChange={onChange}
           />
           <TextField
-            margin="normal"
+            margin='normal'
             required
             fullWidth
-            name="password"
-            label={t("Password")}
-            type="password"
-            id="password"
-            autoComplete="current-password"
+            name='password'
+            label={t('Password')}
+            type='password'
+            id='password'
+            autoComplete='current-password'
             value={formData.password}
             onChange={onChange}
           />
           <Button
-            type="submit"
+            type='submit'
             fullWidth
-            variant="contained"
+            variant='contained'
             sx={{
               mt: 3,
               mb: 2,
             }}
           >
-            {t("SignIn")}
+            {t('SignIn')}
           </Button>
           <Grid container>
             <Grid item xs>
-              <NavLink style={{ color: theme.palette.secondary.main }} to="/">
-                {t("Forgot password?")}
+              <NavLink style={{ color: theme.palette.secondary.main }} to='/'>
+                {t('Forgot password?')}
               </NavLink>
             </Grid>
             <Grid item>
               <NavLink
                 style={{ color: theme.palette.secondary.main }}
-                to="/signup"
+                to='/signup'
               >
                 {t("Don't have an account? Sign Up")}
               </NavLink>

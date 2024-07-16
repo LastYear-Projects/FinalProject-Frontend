@@ -12,6 +12,7 @@ import {
 } from '@mui/material/';
 
 import { Menu as MenuIcon } from '@mui/icons-material/';
+import { useTranslation } from 'react-i18next';
 
 export type XsNavbarProps = {
   pages: {
@@ -30,6 +31,7 @@ const BoxContainer = styled(Box)(({ theme }) => ({
 
 const XsNavbar = ({ pages }: XsNavbarProps) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const totalPages = [
     ...pages,
     { title: 'SignIn', path: '/signin' },
@@ -95,7 +97,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
                     }}
                     textAlign='center'
                   >
-                    {title}
+                    {t(title)}
                   </Typography>
                 </MenuItem>
               </NavLink>

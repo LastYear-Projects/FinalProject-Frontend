@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 import {
   Avatar,
@@ -11,10 +11,10 @@ import {
   Typography,
   Container,
   useTheme,
-} from "@mui/material/";
+} from '@mui/material/';
 
-import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
+import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 export type SignUpType = {
   firstName: string;
@@ -28,21 +28,21 @@ const SignUpPage = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [formData, setFormData] = useState<SignUpType>({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    password: "",
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+    password: '',
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormData({
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      password: "",
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      password: '',
     });
   };
 
@@ -52,31 +52,31 @@ const SignUpPage = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component='main' maxWidth='xs'>
       <Box
         sx={{
           marginTop: 8,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: theme.palette.background.default }}>
-          <LockOutlinedIcon sx={{ color: "white" }} />
+          <LockOutlinedIcon sx={{ color: 'white' }} />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          {t("SignUp")}
+        <Typography component='h1' variant='h5'>
+          {t('SignUp')}
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="given-name"
-                name="firstName"
+                autoComplete='given-name'
+                name='firstName'
                 required
                 fullWidth
-                id="firstName"
-                label={t("First Name")}
+                id='firstName'
+                label={t('First Name')}
                 autoFocus
                 onChange={onChange}
                 value={formData.firstName}
@@ -86,10 +86,10 @@ const SignUpPage = () => {
               <TextField
                 required
                 fullWidth
-                id="lastName"
-                label={t("Last Name")}
-                name="lastName"
-                autoComplete="family-name"
+                id='lastName'
+                label={t('Last Name')}
+                name='lastName'
+                autoComplete='family-name'
                 onChange={onChange}
                 value={formData.lastName}
               />
@@ -98,10 +98,10 @@ const SignUpPage = () => {
               <TextField
                 required
                 fullWidth
-                id="phone"
-                label={t("Phone")}
-                name="phone"
-                autoComplete="phone"
+                id='phone'
+                label={t('Phone')}
+                name='phone'
+                autoComplete='phone'
                 onChange={onChange}
                 value={formData.phone}
               />
@@ -110,10 +110,10 @@ const SignUpPage = () => {
               <TextField
                 required
                 fullWidth
-                id="email"
-                label={t("Email Address")}
-                name="email"
-                autoComplete="email"
+                id='email'
+                label={t('Email')}
+                name='email'
+                autoComplete='email'
                 onChange={onChange}
                 value={formData.email}
               />
@@ -122,34 +122,34 @@ const SignUpPage = () => {
               <TextField
                 required
                 fullWidth
-                name="password"
-                label={t("Password")}
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                name='password'
+                label={t('Password')}
+                type='password'
+                id='password'
+                autoComplete='new-password'
                 onChange={onChange}
                 value={formData.password}
               />
             </Grid>
           </Grid>
           <Button
-            type="submit"
+            type='submit'
             fullWidth
-            variant="contained"
+            variant='contained'
             sx={{
               mt: 3,
               mb: 2,
             }}
           >
-            {t("SignUp")}
+            {t('SignUp')}
           </Button>
-          <Grid container justifyContent="flex-start">
+          <Grid container justifyContent='flex-start'>
             <Grid item>
               <NavLink
                 style={{ color: theme.palette.secondary.main }}
-                to="/signin"
+                to='/signin'
               >
-                {t("Already have an account? Sign In")}
+                {t('Already have an account? Sign In')}
               </NavLink>
             </Grid>
           </Grid>
