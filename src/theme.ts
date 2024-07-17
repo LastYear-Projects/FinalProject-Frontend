@@ -4,7 +4,8 @@ export const COLORS = {
   PRIMARY: '#000000',
   SECONDARY: '#b6b6b6',
   BACKGROUND: '#FFFFFF',
-  BACKGROUND_BUTTONS: '#cecece',
+  BACKGROUND_BUTTONS: '#d3d3d3',
+  BACKGROUND_ICONS: '#b6b6b6',
   BACKGROUND_ON_HOVER: '#b6b6b6',
   TEXT_ON_HOVER_BUTTON: '#ffffff',
   SUCCESS: '#4caf50',
@@ -29,7 +30,7 @@ const themeOptions: ThemeOptions = {
     },
     background: {
       default: COLORS.BACKGROUND,
-      paper: COLORS.BACKGROUND_BUTTONS,
+      paper: COLORS.BACKGROUND_ICONS,
     },
   },
   components: {

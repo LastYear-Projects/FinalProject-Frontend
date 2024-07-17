@@ -42,7 +42,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
   borderTopRightRadius: 0,
   borderBottomLeftRadius: 16,
   borderBottomRightRadius: 16,
-  color: theme.palette.primary.contrastText,
   textTransform: 'none',
   fontWeight: theme.typography.fontWeightBold,
 }));
