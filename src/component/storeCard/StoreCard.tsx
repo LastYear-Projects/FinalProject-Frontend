@@ -13,18 +13,20 @@ import {
   Divider,
 } from '@mui/material';
 import { checkHebrewDirection } from '../../utils/utils';
+import { STYLES } from '../../theme';
 
 const StyledCardContainer = styled(Card)(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
   display: 'flex',
   flexDirection: 'column',
   width: 345,
   borderBottomLeftRadius: 16,
   borderBottomRightRadius: 16,
-  boxShadow: `0px 0px 5px 1px ${theme.palette.background.default}`,
+  boxShadow: `${STYLES.BOX_SHADOW}`,
   border: '1px solid #cecece',
   transition: 'transform 0.3s ease-in-out',
   ':hover': {
-    boxShadow: `0px 0px 10px 1px ${theme.palette.background.default}`,
+    boxShadow: `${STYLES.BOX_SHADOW}`,
     transform: 'scale(1.05)',
   },
 }));
@@ -40,7 +42,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
   borderTopRightRadius: 0,
   borderBottomLeftRadius: 16,
   borderBottomRightRadius: 16,
-  backgroundColor: theme.palette.background.default,
   color: theme.palette.primary.contrastText,
   textTransform: 'none',
   fontWeight: theme.typography.fontWeightBold,

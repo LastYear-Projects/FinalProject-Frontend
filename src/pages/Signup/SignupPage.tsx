@@ -61,7 +61,7 @@ const SignUpPage = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: theme.palette.background.default }}>
+        <Avatar sx={{ m: 1, bgcolor: theme.palette.background.paper }}>
           <LockOutlinedIcon sx={{ color: 'white' }} />
         </Avatar>
         <Typography component='h1' variant='h5'>

@@ -3,7 +3,9 @@ import { createTheme, ThemeOptions } from '@mui/material/styles';
 export const COLORS = {
   PRIMARY: '#000000',
   SECONDARY: '#b6b6b6',
-  BACKGROUND: '#cecece',
+  BACKGROUND: '#FFFFFF',
+  BACKGROUND_BUTTONS: '#cecece',
+  BACKGROUND_ON_HOVER: '#b6b6b6',
   TEXT_ON_HOVER_BUTTON: '#ffffff',
   SUCCESS: '#4caf50',
   ERROR: '#f44336',
@@ -14,7 +16,7 @@ export const STYLES = {
   BORDER_RADIUS: 8,
   FONT_FAMILY: 'Roboto, Arial, sans-serif',
   FONT_WEIGHT_BOLD: 600,
-  BOX_SHADOW: `1px 3px 5px ${COLORS.BACKGROUND}`,
+  BOX_SHADOW: `0px 0px 5px 1px ${COLORS.SECONDARY}`,
 };
 
 const themeOptions: ThemeOptions = {
@@ -27,6 +29,7 @@ const themeOptions: ThemeOptions = {
     },
     background: {
       default: COLORS.BACKGROUND,
+      paper: COLORS.BACKGROUND_BUTTONS,
     },
   },
   components: {
@@ -38,6 +41,15 @@ const themeOptions: ThemeOptions = {
           '& .MuiOutlinedInput-root': {
             borderRadius: STYLES.BORDER_RADIUS,
           },
+          '& .MuiInputLabel-root.Mui-focused': {
+            color: 'black',
+          },
+          '& .MuiInput-underline:hover:before': {
+            borderBottomColor: 'black',
+          },
+          '& .MuiInput-underline:after': {
+            borderBottomColor: 'black',
+          },
         },
       },
     },
@@ -46,10 +58,10 @@ const themeOptions: ThemeOptions = {
         root: {
           color: COLORS.PRIMARY,
           borderRadius: STYLES.BORDER_RADIUS,
-          backgroundColor: COLORS.BACKGROUND,
+          backgroundColor: COLORS.BACKGROUND_BUTTONS,
           textTransform: 'none',
           '&:hover': {
-            backgroundColor: COLORS.SECONDARY,
+            backgroundColor: COLORS.BACKGROUND_ON_HOVER,
             boxShadow: STYLES.BOX_SHADOW,
             color: COLORS.TEXT_ON_HOVER_BUTTON,
           },
@@ -61,7 +73,7 @@ const themeOptions: ThemeOptions = {
         root: {
           color: COLORS.PRIMARY,
           '&.Mui-focused': {
-            color: COLORS.BACKGROUND,
+            color: 'black',
           },
         },
       },
@@ -70,10 +82,21 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: COLORS.BACKGROUND,
+            borderColor: COLORS.BACKGROUND_ON_HOVER,
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: COLORS.BACKGROUND,
+            borderColor: COLORS.BACKGROUND_ON_HOVER,
+          },
+        },
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontFamily: STYLES.FONT_FAMILY,
+          fontWeight: STYLES.FONT_WEIGHT_BOLD,
+          '& .MuiOutlinedInput-root': {
+            borderRadius: STYLES.BORDER_RADIUS,
           },
         },
       },
