@@ -53,24 +53,9 @@ const BoxContainer = styled(Box)(() => ({
   flexDirection: 'column',
 }));
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
+const StyledTextField = styled(TextField)(() => ({
   marginBottom: '1.5rem',
   width: '10rem',
-  '& .MuiInputLabel-root': {
-    color: theme.palette.text.primary,
-  },
-  '& .MuiInputLabel-root.Mui-focused': {
-    color: theme.palette.text.primary,
-  },
-  '& .MuiInput-underline:before': {
-    borderBottomColor: theme.palette.text.secondary,
-  },
-  '& .MuiInput-underline:hover:before': {
-    borderBottomColor: theme.palette.text.secondary,
-  },
-  '& .MuiInput-underline:after': {
-    borderBottomColor: theme.palette.text.secondary,
-  },
 }));
 
 const HomePage = () => {
