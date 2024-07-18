@@ -34,19 +34,22 @@ const DropDownMenu = ({ settings }: DropDownMenu) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseUserMenu = (setting: string, path: string) => {
-    if (setting !== 'Logout') {
-      navigate(path);
-    } else {
-      //TODO - Logout logic.
-    }
-
+  const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleNavigate = (title: string, path: string) => {
+    if (title === 'Logout') {
+      // Logout logic
+    } else {
+      navigate(path);
+    }
+    handleCloseUserMenu();
   };
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title='Open settings'>
+      <Tooltip title='Open menu'>
         <IconButton onClick={handleOpenUserMenu}>
           <Avatar alt='User Profile' src={defaultProfilePicture} />
         </IconButton>
@@ -69,10 +72,7 @@ const DropDownMenu = ({ settings }: DropDownMenu) => {
       >
         {settings &&
           settings.map(({ title, path }) => (
-            <MenuItem
-              key={title}
-              onClick={() => handleCloseUserMenu(title, path)}
-            >
+            <MenuItem key={title} onClick={() => handleNavigate(title, path)}>
               <Typography
                 sx={{
                   color: theme.palette.text.primary,

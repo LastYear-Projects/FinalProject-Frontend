@@ -60,7 +60,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
           onClick={handleOpenNavMenu}
           color='inherit'
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: theme.palette.secondary.contrastText }} />
         </IconButton>
         <Menu
           id='menu-appbar'
@@ -104,19 +104,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
             ))}
         </Menu>
       </BoxContainer>
-      <BoxContainer>
-        <img
-          style={{
-            cursor: 'pointer',
-            border: '2px solid white',
-            borderRadius: '50%',
-          }}
-          alt='SwipeAdvisor'
-          src='../../../assets/SwipeAdvisor.jpg'
-          width='100px'
-          height='85px'
-        />
-      </BoxContainer>
+      <BoxContainer></BoxContainer>
     </>
   );
 };

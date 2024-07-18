@@ -25,7 +25,7 @@ const settings = [
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const [isLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(true);
   const { t } = useTranslation();
 
   const theme = useTheme();

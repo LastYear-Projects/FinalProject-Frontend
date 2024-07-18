@@ -27,10 +27,10 @@ const themeOptions: ThemeOptions = {
     },
     secondary: {
       main: COLORS.SECONDARY,
+      contrastText: COLORS.BACKGROUND_ICONS,
     },
     background: {
       default: COLORS.BACKGROUND,
-      paper: COLORS.BACKGROUND_ICONS,
     },
   },
   components: {
@@ -59,13 +59,7 @@ const themeOptions: ThemeOptions = {
         root: {
           color: COLORS.PRIMARY,
           borderRadius: STYLES.BORDER_RADIUS,
-          backgroundColor: COLORS.BACKGROUND_BUTTONS,
           textTransform: 'none',
-          '&:hover': {
-            backgroundColor: COLORS.BACKGROUND_ON_HOVER,
-            boxShadow: STYLES.BOX_SHADOW,
-            color: COLORS.TEXT_ON_HOVER_BUTTON,
-          },
         },
       },
     },

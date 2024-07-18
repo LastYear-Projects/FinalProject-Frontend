@@ -52,11 +52,14 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
           style={{
             cursor: 'pointer',
             borderRadius: '50%',
-            border: '2px solid white',
+            border: '3px solid white',
+            boxShadow: '1rem 0.4rem 0.5rem rgba(0, 0, 0, 0.1)',
+            width: '100px',
+            height: '100px',
+            margin: '0 1rem',
           }}
           alt='SwipeAdvisor'
           src='../../../assets/SwipeAdvisor.jpg'
-          width='100px'
         />
       </BoxContainer>
       <BoxContent>
@@ -66,7 +69,8 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
               <StyledButton
                 key={path}
                 onClick={handleCloseNavMenu}
-                className={pathname === path ? css['selected'] : ''}
+                id={pathname === path ? css['selected'] : ''}
+                // className={pathname === path ? css['selected'] : ''}
               >
                 {t(title)}
               </StyledButton>

@@ -42,7 +42,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
   borderTopRightRadius: 0,
   borderBottomLeftRadius: 16,
   borderBottomRightRadius: 16,
-  textTransform: 'none',
   fontWeight: theme.typography.fontWeightBold,
 }));
 
@@ -106,6 +105,7 @@ const StoreCard = ({
             </Typography>
           </Box>
         </StyledCardContent>
+        <Divider />
         <StyledButton fullWidth>{t('Choose Store')}</StyledButton>
       </CardActionArea>
     </StyledCardContainer>

@@ -1,3 +1,7 @@
-.selected {
-  box-shadow: 0px 0px 2px 2px #ffffff;
+#selected {
+  box-shadow: 0px 0px 2px 2px #c0c0c0;
+  text-decoration: underline;
+  text-decoration-color: orangered;
+  text-decoration-thickness: 0.1rem;
+  text-underline-offset: 0.2rem;
 }
