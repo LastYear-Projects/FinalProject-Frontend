@@ -8,6 +8,12 @@
   ],
   "FullName": ["FullName", "שם מלא"],
   "CreditCards": ["Credit Cards", "כרטיסי אשראי"],
+  "Add New Cards": ["Add New Cards", "הוספת כרטיסי אשראי"],
+  "No stores found": ["No stores found", "לא נמצאו חנויות"],
+  "No more cards to add": [
+    "No more cards to add",
+    "לא ניתן להוסיף עוד כרטיסים"
+  ],
   "Update price": ["Update price", "עדכון מחיר"],
   "SignIn": ["SignIn", "התחברות"],
   "SignUp": ["SignUp", "הרשמה"],
@@ -15,8 +21,11 @@
   "Profile Page": ["Profile Page", "עמוד פרופיל"],
   "Logout": ["Logout", "התנתקות"],
   "Email": ["Email Address", "כתובת אימייל"],
+  "email": ["Email Address", "כתובת אימייל"],
   "First Name": ["First Name", "שם פרטי"],
+  "firstName": ["First Name", "שם פרטי"],
   "Last Name": ["Last Name", "שם משפחה"],
+  "lastName": ["Last Name", "שם משפחה"],
   "Phone": ["Phone", "מספר פלאפון"],
   "Already have an account? Sign In": [
     "Already have an account? Sign In",

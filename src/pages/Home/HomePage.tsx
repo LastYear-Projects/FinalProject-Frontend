@@ -1,38 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Grid, styled, TextField } from '@mui/material';
-import StoreCard from '../../component/storeCard/StoreCard';
-
-const defaultStoreCardData = [
-  {
-    businessImage:
-      'https://atrium-targowek.pl/assets/webp-express/webp-images/doc-root/assets/uploads/2023/08/c384179a-7210-4984-97e1-7c261605625b.png.webp',
-    title: 'זארה',
-    businessCategory: 'ביגוד',
-    id: 1,
-  },
-  {
-    businessImage:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Kmau53hrnqOIV_oen4ztf-rx5QR6xkAvuw&s',
-    title: 'Mania Jeans',
-    businessCategory: 'Clothing',
-    id: 2,
-  },
-  {
-    businessImage:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSECA50vJOqaxYtRVsA5o7XCAjjBkgYckOfaA&s',
-    title: 'Replay',
-    businessCategory: 'Clothing',
-    id: 3,
-  },
-  {
-    businessImage:
-      'https://fox.co.il/cdn/shop/files/foxlogo1200.jpg?v=1708591989',
-    title: 'Fox',
-    businessCategory: 'Home',
-    id: 4,
-  },
-];
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  styled,
+  TextField,
+  Typography,
+  useTheme,
+} from '@mui/material';
+import StoreCard, { StoreCardProps } from '../../component/storeCard/StoreCard';
+import { useStoresQuery } from '../../hooks/useStores';
+import { useStore } from '../../store/store';
 
 const FlexedBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -59,15 +38,23 @@ const StyledTextField = styled(TextField)(() => ({
 }));
 
 const HomePage = () => {
-  const [filteredData, setFilteredData] = useState(defaultStoreCardData);
+  const { isLoading } = useStoresQuery();
+  const stores = useStore((state) => state.stores);
+  const theme = useTheme();
+  const [filteredData, setFilteredData] = useState<StoreCardProps[]>([]);
+
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setFilteredData(stores);
+  }, [stores]);
 
   const handleFilterData = (event: React.ChangeEvent<HTMLInputElement>) => {
     const lowerValue = event?.target.value?.toLowerCase();
 
     setFilteredData(
-      defaultStoreCardData.filter((store) => {
-        const lowerTitle = store.title.toLowerCase();
+      stores.filter((store) => {
+        const lowerTitle = store.businessName.toLowerCase();
         const lowerCategory = store.businessCategory.toLowerCase();
 
         return (
@@ -77,7 +64,9 @@ const HomePage = () => {
     );
   };
 
-  return (
+  return isLoading ? (
+    <CircularProgress sx={{ color: theme.palette.background.default }} />
+  ) : (
     <BoxContainer>
       <StyledTextField
         id='standard-basic'
@@ -92,6 +81,9 @@ const HomePage = () => {
               <StoreCard key={index} {...storeCardData} />
             </Grid>
           ))}
+          {stores?.length === 0 && filteredData.length === 0 && (
+            <Typography variant='h4'>{`${t('No stores found')}...`}</Typography>
+          )}
         </GridContainer>
       </FlexedBox>
     </BoxContainer>
