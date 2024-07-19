@@ -47,24 +47,23 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 export type StoreCardProps = {
   businessImage: string;
-  title: string;
+  businessName: string;
   businessCategory: string;
-  id: number;
+  _id: string;
 };
 
 const StoreCard = ({
   businessImage: businessImage,
-  title,
+  businessName: title,
   businessCategory: businessCategory,
-  id,
+  _id,
 }: StoreCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const contentDirection = checkHebrewDirection(title, businessCategory);
 
   const handleClick = () => {
-    console.log(`StoreCard ${id} Clicked`);
-    navigate(`/transaction/${id}`);
+    navigate(`/transaction/${_id}`);
   };
 
   return (

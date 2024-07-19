@@ -13,6 +13,8 @@ import TransactionPage from './pages/Transaction/TransactionPage';
 import StorePage from './pages/Store/StorePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // TODO -> Make all the routes except the SignIn/SignUp page private.
 const router = [
@@ -64,36 +66,41 @@ const BoxContent = styled(Box)({
   overflowX: 'hidden',
 });
 
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <BoxContainer>
-          <Navbar />
-          <BoxContent>
-            <Routes>
-              {router.map(({ path, component: Component, isPrivate }) => (
-                <Route
-                  key={path}
-                  path={path}
-                  element={
-                    isPrivate ? (
-                      <PrivateRoute>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <BoxContainer>
+            <Navbar />
+            <BoxContent>
+              <Routes>
+                {router.map(({ path, component: Component, isPrivate }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={
+                      isPrivate ? (
+                        <PrivateRoute>
+                          <Component />
+                        </PrivateRoute>
+                      ) : (
                         <Component />
-                      </PrivateRoute>
-                    ) : (
-                      <Component />
-                    )
-                  }
-                />
-              ))}
-            </Routes>
-          </BoxContent>
-          <Footer />
-        </BoxContainer>
-      </Router>
-      <ToastContainer />
-    </ThemeProvider>
+                      )
+                    }
+                  />
+                ))}
+              </Routes>
+            </BoxContent>
+            <Footer />
+          </BoxContainer>
+        </Router>
+        <ToastContainer />
+      </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

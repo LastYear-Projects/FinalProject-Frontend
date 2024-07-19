@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Box, Button, TextField, Typography } from '@mui/material';
-import { toastify } from '../../utils/utils';
+import { onKeyPress, toastify } from '../../utils/utils';
 
 const TransactionPage = () => {
   const [transactionPrice, setTransactionPrice] = React.useState(0);
@@ -21,6 +21,7 @@ const TransactionPage = () => {
     }
     navigate(`/store/${storeId}/amount/${transactionPrice}`);
   };
+
   return (
     <Box
       sx={{
@@ -35,6 +36,7 @@ const TransactionPage = () => {
         {t('Enter Transaction Price')}
       </Typography>
       <TextField
+        onKeyDown={(e) => onKeyPress(e, 'Enter', onSubmit)}
         sx={{ marginTop: 4 }}
         id='outlined-basic'
         label={t('Enter Transaction Price')}

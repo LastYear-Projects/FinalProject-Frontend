@@ -1,6 +1,11 @@
 import { Bounce, toast, ToastOptions } from 'react-toastify';
 import { ToastifyProps } from '../globalTypes';
 
+export const getBaseUrl = () => {
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  return baseUrl;
+};
+
 export const isHebrew = (text: string) => {
   return /[\u0590-\u05FF]/.test(text);
 };
@@ -43,5 +48,15 @@ export const toastify = ({ type, message, position }: ToastifyProps) => {
       break;
     default:
       toast.error(message, options);
+  }
+};
+
+export const onKeyPress = (
+  e: React.KeyboardEvent,
+  key: string,
+  callback: () => void
+) => {
+  if (e.key === key) {
+    callback();
   }
 };
