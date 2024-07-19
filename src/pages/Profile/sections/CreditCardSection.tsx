@@ -47,10 +47,15 @@ const CreditCardSection: React.FC<CreditCardSectionProps> = ({
             item
             xs={12}
             sm={6}
-            md={4}
+            md={'auto'}
             key={card.cardName + index}
             display='flex'
             justifyContent='center'
+            sx={{
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              overflow: 'hidden',
+            }}
           >
             <CreditCard
               cardId={card._id}

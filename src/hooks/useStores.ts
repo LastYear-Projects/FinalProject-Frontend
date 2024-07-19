@@ -5,7 +5,7 @@ import { useCreditCard, useStore, useUser } from '../store/store';
 import { getBaseUrl } from '../utils/utils';
 import { CreditCardType, UserType } from '../globalTypes';
 
-const fetchStores = async (): Promise<StoreCardProps[]> => {
+export const fetchStores = async (): Promise<StoreCardProps[]> => {
   try {
     const response = await axios.get(`${getBaseUrl()}/businesses`);
     return response.data;

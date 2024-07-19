@@ -64,6 +64,7 @@ const ProfilePage = () => {
         sx={{
           margin: '1rem 0 2rem 0',
           fontWeight: theme.typography.fontWeightBold,
+          whiteSpace: 'nowrap',
         }}
       >
         {t('Profile Page')}

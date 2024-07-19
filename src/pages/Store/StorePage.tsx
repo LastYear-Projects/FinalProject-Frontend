@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  CircularProgress,
-  Typography,
-  Button,
-  TextField,
-  useTheme,
-  Grid,
-} from '@mui/material';
-import CreditCard from '../../component/creditCard/CreditCard';
+import { Box, useTheme } from '@mui/material';
 import { useStore } from '../../store/store';
 import { onKeyPress } from '../../utils/utils';
+import LoadingSection from './sections/LoadingSection';
+import StoreInfoSection from './sections/StoreInfoSection';
+import CreditCardListSection from './sections/CreditCardListSection';
+import { fetchStores } from '../../hooks/useStores';
 
 const mockCreditCards = [
   {
@@ -41,8 +36,10 @@ const mockCreditCards = [
 const StorePage = () => {
   const { storeId, transactionPrice } = useParams();
   const [price, setPrice] = useState(transactionPrice);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const currentStore = useStore((state) => state.getStoreById(storeId ?? ''));
+  const setStores = useStore((state) => state.setStores);
 
   const theme = useTheme();
   const { t } = useTranslation();
@@ -52,12 +49,31 @@ const StorePage = () => {
   };
 
   const getAlgorithmResult = async () => {
-    //TODO - call the algorithm API and setIsLoading.
+    // TODO: Call the algorithm API and setIsLoading.
   };
 
   useEffect(() => {
     getAlgorithmResult();
   }, [price]);
+
+  useEffect(() => {
+    const init = async () => {
+      if (!currentStore) {
+        setIsLoading(true);
+        try {
+          const data = await fetchStores();
+          setStores(data);
+        } catch (error) {
+          console.error('Failed to fetch stores:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    };
+    init();
+  }, [currentStore, setStores]);
 
   return (
     <Box
@@ -69,66 +85,18 @@ const StorePage = () => {
       }}
     >
       {isLoading ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '50vh',
-            flexDirection: 'column',
-          }}
-        >
-          <Typography
-            variant='h6'
-            sx={{
-              marginBottom: theme.spacing(2),
-              fontWeight: theme.typography.fontWeightBold,
-            }}
-          >
-            {t('Waiting for algorithm result...')}
-          </Typography>
-          <CircularProgress sx={{ color: theme.palette.background.default }} />
-        </Box>
+        <LoadingSection theme={theme} t={t} />
       ) : (
         <>
-          <img
-            src={currentStore?.businessImage}
-            alt={currentStore?.businessName}
-            width={200}
+          <StoreInfoSection
+            store={currentStore}
+            price={price}
+            handlePriceChange={handlePriceChange}
+            getAlgorithmResult={() => getAlgorithmResult()}
+            onKeyPress={(e) => onKeyPress(e, 'Enter', getAlgorithmResult)}
+            t={t}
           />
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              marginTop: theme.spacing(2),
-              gap: theme.spacing(2),
-            }}
-          >
-            <TextField
-              onKeyDown={(e) => onKeyPress(e, 'Enter', getAlgorithmResult)}
-              id='price'
-              label={t('Transaction Price')}
-              type='number'
-              value={price}
-              onChange={handlePriceChange}
-            />
-            <Button variant='contained' color='primary'>
-              {t('Update price')}
-            </Button>
-          </Box>
-          <Grid marginTop={2} container rowGap={2} columnGap={2}>
-            {mockCreditCards?.map((card, index) => (
-              <Grid
-                item
-                xs={12}
-                key={card.cardName + index}
-                display='flex'
-                justifyContent='center'
-              >
-                <CreditCard {...card} />
-              </Grid>
-            ))}
-          </Grid>
+          <CreditCardListSection creditCards={mockCreditCards} />
         </>
       )}
     </Box>

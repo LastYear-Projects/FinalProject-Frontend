@@ -3,28 +3,14 @@ import { useTranslation } from 'react-i18next';
 import {
   Box,
   CircularProgress,
-  Grid,
   styled,
   TextField,
-  Typography,
   useTheme,
 } from '@mui/material';
-import StoreCard, { StoreCardProps } from '../../component/storeCard/StoreCard';
+import { StoreCardProps } from '../../component/storeCard/StoreCard';
 import { useStoresQuery } from '../../hooks/useStores';
 import { useStore } from '../../store/store';
-
-const FlexedBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginTop: theme.spacing(3),
-}));
-
-const GridContainer = styled(Grid)(() => ({
-  maxWidth: '85rem',
-  display: 'flex',
-  justifyContent: 'center',
-}));
+import StoresSection from './sections/StoresSection';
 
 const BoxContainer = styled(Box)(() => ({
   display: 'flex',
@@ -74,18 +60,7 @@ const HomePage = () => {
         variant='standard'
         onChange={handleFilterData}
       />
-      <FlexedBox>
-        <GridContainer container rowSpacing={6} columnSpacing={6}>
-          {filteredData.map((storeCardData, index) => (
-            <Grid item key={index}>
-              <StoreCard key={index} {...storeCardData} />
-            </Grid>
-          ))}
-          {stores?.length === 0 && filteredData.length === 0 && (
-            <Typography variant='h4'>{`${t('No stores found')}...`}</Typography>
-          )}
-        </GridContainer>
-      </FlexedBox>
+      <StoresSection filteredData={filteredData} />
     </BoxContainer>
   );
 };

@@ -63,6 +63,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
                 sx={{
                   fontWeight: 'bold',
                   minWidth: '100px',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {t(key)}:
