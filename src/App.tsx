@@ -10,7 +10,6 @@ import Footer from './component/footer/Footer';
 import ProfilePage from './pages/Profile/ProfilePage';
 import PrivateRoute from './pages/PrivateRoutes/PrivateRoutes';
 import TransactionPage from './pages/Transaction/TransactionPage';
-import StorePage from './pages/Store/StorePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -31,11 +30,6 @@ const router = [
   {
     path: '/transaction/:storeId',
     component: TransactionPage,
-    isPrivate: true,
-  },
-  {
-    path: '/store/:storeId/amount/:transactionPrice',
-    component: StorePage,
     isPrivate: true,
   },
   {

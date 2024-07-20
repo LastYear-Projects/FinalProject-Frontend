@@ -1,59 +1,85 @@
-import React from 'react';
-import { useNavigate, useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { onKeyPress, toastify } from '../../utils/utils';
+import { Box, CircularProgress, useTheme, styled } from '@mui/material';
+import { getAlgorithmResult, getCreditCard } from '../../utils/utils';
+import { useStore } from '../../store/store';
+import { fetchStores } from '../../hooks/useStores';
+import { CreditCardType } from '../../globalTypes';
+import LoadingSection from './sections/LoadingSection';
+import CreditCardListSection from './sections/CreditCardListSection';
+import StoreInfoSection from './sections/StoreInfoSection';
+
+const StyledBox = styled(Box)(() => ({
+  marginTop: 4,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+}));
 
 const TransactionPage = () => {
-  const [transactionPrice, setTransactionPrice] = React.useState(0);
   const { storeId } = useParams();
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const [transactionPrice, setTransactionPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAlgorithmLoading, setIsAlgorithmLoading] = useState(false);
+  const [creditCards, setCreditCards] = useState<CreditCardType[]>([]);
 
-  const onSubmit = () => {
-    if (transactionPrice === 0) {
-      toastify({
-        type: 'error',
-        message: 'Please enter a valid price',
-        position: 'top-center',
-      });
-      return;
+  const currentStore = useStore((state) => state.getStoreById(storeId!));
+  const setStores = useStore((state) => state.setStores);
+
+  const theme = useTheme();
+  const { t } = useTranslation();
+
+  const handleGetAlgorithmResult = async () => {
+    setCreditCards([]);
+    setIsAlgorithmLoading(true);
+    const data = await getAlgorithmResult(transactionPrice, storeId!);
+    const results: Promise<CreditCardType>[] = [];
+    for (const cardId of data) {
+      results.push(getCreditCard(cardId.creditCardId));
     }
-    navigate(`/store/${storeId}/amount/${transactionPrice}`);
+    setCreditCards(await Promise.all(results));
+    setIsAlgorithmLoading(false);
   };
 
-  return (
-    <Box
-      sx={{
-        marginTop: 4,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-      }}
-    >
-      <Typography sx={{ marginTop: 4 }} variant='h4'>
-        {t('Enter Transaction Price')}
-      </Typography>
-      <TextField
-        onKeyDown={(e) => onKeyPress(e, 'Enter', onSubmit)}
-        sx={{ marginTop: 4 }}
-        id='outlined-basic'
-        label={t('Enter Transaction Price')}
-        variant='outlined'
-        type='number'
-        value={transactionPrice}
-        onChange={(e) => {
-          const value = Number(e.target.value);
-          if (value >= 0) {
-            setTransactionPrice(value);
-          }
-        }}
+  useEffect(() => {
+    const init = async () => {
+      if (!currentStore) {
+        setIsLoading(true);
+        try {
+          const data = await fetchStores();
+          setStores(data);
+        } catch (error) {
+          console.error('Failed to fetch stores:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    };
+    init();
+  }, [currentStore, setStores]);
+
+  return isLoading ? (
+    <CircularProgress sx={{ color: theme.palette.background.default }} />
+  ) : (
+    <StyledBox>
+      <StoreInfoSection
+        transactionPrice={transactionPrice}
+        setTransactionPrice={setTransactionPrice}
+        storeId={storeId!}
+        onClick={handleGetAlgorithmResult}
       />
-      <Button onClick={onSubmit} sx={{ marginTop: 4 }} variant='outlined'>
-        {t('Go For It')}
-      </Button>
-    </Box>
+      {isAlgorithmLoading ? (
+        <LoadingSection theme={theme} t={t} />
+      ) : (
+        creditCards.length > 0 && (
+          <CreditCardListSection creditCards={creditCards} />
+        )
+      )}
+    </StyledBox>
   );
 };
 
