@@ -1,5 +1,6 @@
 import { Bounce, toast, ToastOptions } from 'react-toastify';
 import { ToastifyProps } from '../globalTypes';
+import axios from 'axios';
 
 export const getBaseUrl = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -59,4 +60,30 @@ export const onKeyPress = (
   if (e.key === key) {
     callback();
   }
+};
+
+export const getAlgorithmResult = async (
+  transactionAmount: number,
+  businessId: string
+) => {
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhjNDQ0NzQzYWEyYWEzNjRkNzk2YTIiLCJpYXQiOjE3MjE1MDUwMzcsImV4cCI6MTcyMTUwNTYzN30.QcjLe53Ul9c58i08LeRhnR3sDmcU6mVdbBNzzyYAUUE';
+  try {
+    const response = await axios.get(
+      `${getBaseUrl()}/recommendation/?transactionAmount=${transactionAmount}&businessId=${businessId}`,
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    return response.data;
+  } catch (e: any) {
+    console.error(e?.message);
+  }
+};
+
+export const getCreditCard = async (cardId: string) => {
+  const response = await axios.get(`${getBaseUrl()}/cards/${cardId}`);
+  return response.data;
 };
