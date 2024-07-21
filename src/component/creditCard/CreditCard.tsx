@@ -1,6 +1,7 @@
 import { Add as AddIcon, Cancel as CancelIcon } from '@mui/icons-material';
 import { Box, IconButton, Typography, styled } from '@mui/material';
 import { isHebrew } from '../../utils/utils';
+import { CardKeys, Cards } from '../../globalTypes';
 
 const BoxContainer = styled(Box)<{ background: string; textColor: string }>(
   ({ background, textColor }) => ({
@@ -29,6 +30,7 @@ export type CreditCardProps = {
   background?: string;
   textColor?: string;
   cardId: string;
+  cardBrand: CardKeys;
   cancelButton?: boolean;
   addButton?: boolean;
 };
@@ -36,7 +38,8 @@ export type CreditCardProps = {
 const CreditCard = ({
   cardName,
   cardId,
-  background = 'black',
+  cardBrand,
+  background = 'gray',
   textColor = 'white',
   cancelButton = false,
   addButton = false,
@@ -53,16 +56,20 @@ const CreditCard = ({
 
   return (
     <BoxContainer background={background} textColor={textColor}>
-      <Typography
-        variant='h5'
-        sx={{
-          fontWeight: 'bold',
-          textAlign: isHebrew(cardName) ? 'right' : 'left',
-          marginRight: '0.25rem',
-        }}
-      >
-        {cardName}
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography
+          variant='h5'
+          sx={{
+            fontWeight: 'bold',
+            textAlign: isHebrew(cardName) ? 'right' : 'left',
+            marginRight: '0.25rem',
+          }}
+        >
+          {cardName}
+        </Typography>
+        <img src={Cards[cardBrand]} alt='creditCardLogo' width={50} />
+      </Box>
+
       <Typography sx={{ letterSpacing: '0.225rem' }}>
         {'**** **** **** 0123'}
       </Typography>
@@ -70,7 +77,6 @@ const CreditCard = ({
         <Typography variant='body1'>
           {'User Name from token | Nothing'}
         </Typography>
-        <Typography variant='body1'>{'0/29'}</Typography>
       </FlexBox>
       <Box sx={{ position: 'absolute', right: 0, top: 0 }}>
         {cancelButton && (

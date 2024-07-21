@@ -67,7 +67,7 @@ export const getAlgorithmResult = async (
   businessId: string
 ) => {
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhjNDQ0NzQzYWEyYWEzNjRkNzk2YTIiLCJpYXQiOjE3MjE1MDUwMzcsImV4cCI6MTcyMTUwNTYzN30.QcjLe53Ul9c58i08LeRhnR3sDmcU6mVdbBNzzyYAUUE';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhjNDQ0NzQzYWEyYWEzNjRkNzk2YTIiLCJpYXQiOjE3MjE1ODA0MDMsImV4cCI6MTcyNzU4MDM0M30.qw4BpexwZ52RdUvpnUXXnFOnQZ2VieFHRWF4_LkH7po';
   try {
     const response = await axios.get(
       `${getBaseUrl()}/recommendation/?transactionAmount=${transactionAmount}&businessId=${businessId}`,

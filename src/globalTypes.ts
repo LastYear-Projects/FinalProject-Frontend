@@ -1,3 +1,5 @@
+import { MASTER_CARD, VISA } from './constants/constants';
+
 export type ToastifyType = 'info' | 'success' | 'warning' | 'error';
 export type ToastifyPosition =
   | 'top-left'
@@ -41,3 +43,11 @@ export type UserType = {
   creditCards: CreditCardType[];
   userPreferences: UserPreferencesType;
 };
+
+export const Cards = {
+  MasterCard: MASTER_CARD,
+  Visa: VISA,
+} as const;
+
+export type CardKeys = keyof typeof Cards;
+export type CardValues = (typeof Cards)[CardKeys];
