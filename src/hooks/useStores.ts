@@ -42,18 +42,15 @@ const fetchUser = async (token: string): Promise<UserType> => {
       creditCards: [
         {
           _id: '6658b67e892bce96bd5d588d',
-          cardName: 'Bit|MasterCard',
+          cardName: 'Bit',
           pointValue: 0,
+          cardBrand: 'MasterCard',
         },
         {
           _id: '6658b688892bce96bd5d588f',
-          cardName: 'I Need It|MasterCard',
+          cardName: 'I Need It',
           pointValue: 3,
-        },
-        {
-          _id: '6658b690892bce96bd5d5891',
-          cardName: 'I Need It|Visa',
-          pointValue: 5,
+          cardBrand: 'MasterCard',
         },
       ],
       userPreferences: {

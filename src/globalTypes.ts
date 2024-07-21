@@ -28,6 +28,9 @@ export type CreditCardType = {
   _id: string;
   cardName: string;
   pointValue: number;
+  cardBrand: CardKeys;
+  grade?: string;
+  profit?: string;
 };
 
 export type UserPreferencesType = {

@@ -27,10 +27,10 @@ const FlexBox = styled(Box)({
 
 export type CreditCardProps = {
   cardName: string;
-  background?: string;
-  textColor?: string;
   cardId: string;
   cardBrand: CardKeys;
+  background?: string;
+  textColor?: string;
   cancelButton?: boolean;
   addButton?: boolean;
 };
@@ -78,11 +78,22 @@ const CreditCard = ({
           {'User Name from token | Nothing'}
         </Typography>
       </FlexBox>
-      <Box sx={{ position: 'absolute', right: 0, top: 0 }}>
+      <Box
+        sx={{
+          position: 'absolute',
+          right: -5,
+          top: -5,
+        }}
+      >
         {cancelButton && (
           <IconButton onClick={() => handleRemoveCard(cardId)}>
             <CancelIcon
-              sx={{ color: background === 'white' ? 'black' : 'white' }}
+              sx={{
+                color: background === 'white' ? 'black' : 'white',
+                '&:hover': {
+                  color: 'red',
+                },
+              }}
             />
           </IconButton>
         )}

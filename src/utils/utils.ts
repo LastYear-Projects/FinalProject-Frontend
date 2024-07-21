@@ -67,7 +67,7 @@ export const getAlgorithmResult = async (
   businessId: string
 ) => {
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjhjNDQ0NzQzYWEyYWEzNjRkNzk2YTIiLCJpYXQiOjE3MjE1ODA0MDMsImV4cCI6MTcyNzU4MDM0M30.qw4BpexwZ52RdUvpnUXXnFOnQZ2VieFHRWF4_LkH7po';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlkM2NhZjBiZDVmYzgzZmZiYmI0NWMiLCJpYXQiOjE3MjE1ODcxODEsImV4cCI6MTcyNzU4NzEyMX0.MY8dUSTa8-yODduYwJ9rgRuGy7r48f5SlXhElA2lEZQ';
   try {
     const response = await axios.get(
       `${getBaseUrl()}/recommendation/?transactionAmount=${transactionAmount}&businessId=${businessId}`,
@@ -86,4 +86,9 @@ export const getAlgorithmResult = async (
 export const getCreditCard = async (cardId: string) => {
   const response = await axios.get(`${getBaseUrl()}/cards/${cardId}`);
   return response.data;
+};
+
+export const convertToNumber = (item: string) => {
+  if (!item) return '';
+  return Number(item).toFixed(2);
 };

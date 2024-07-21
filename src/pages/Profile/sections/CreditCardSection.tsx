@@ -58,8 +58,8 @@ const CreditCardSection: React.FC<CreditCardSectionProps> = ({
             }}
           >
             <CreditCard
+              {...card}
               cardId={card._id}
-              cardName={card.cardName}
               cancelButton={isCreditCardEditing}
             />
           </Grid>

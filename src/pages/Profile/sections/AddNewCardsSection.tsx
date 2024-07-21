@@ -30,19 +30,20 @@ const AddNewCardsSection: React.FC<AddNewCardsSectionProps> = ({
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
         <Grid container spacing={2}>
-          {filteredCreditCards.map((card, index) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              key={card.cardName + index}
-              display='flex'
-              justifyContent='center'
-            >
-              <CreditCard {...card} cardId={card._id} addButton />
-            </Grid>
-          ))}
+          {React.Children.toArray(
+            filteredCreditCards.map((card) => (
+              <Grid
+                item
+                xs={12}
+                sm={'auto'}
+                md={'auto'}
+                display='flex'
+                justifyContent='center'
+              >
+                <CreditCard {...card} cardId={card._id} addButton />
+              </Grid>
+            ))
+          )}
           {filteredCreditCards.length === 0 && (
             <Typography variant='h6' sx={{ margin: '1rem' }}>
               {t('No more cards to add')}...

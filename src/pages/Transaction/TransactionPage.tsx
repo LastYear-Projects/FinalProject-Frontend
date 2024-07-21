@@ -34,11 +34,18 @@ const TransactionPage = () => {
   const handleGetAlgorithmResult = async () => {
     setCreditCards([]);
     setIsAlgorithmLoading(true);
+
     const data = await getAlgorithmResult(transactionPrice, storeId!);
-    const results: Promise<CreditCardType>[] = [];
-    for (const cardId of data) {
-      results.push(getCreditCard(cardId.creditCardId));
-    }
+
+    const results: Promise<CreditCardType>[] = data.map(async (card) => {
+      const creditCard = await getCreditCard(card.creditCardId);
+      return {
+        ...creditCard,
+        grade: card.grade,
+        profit: card.profit,
+      };
+    });
+
     setCreditCards(await Promise.all(results));
     setIsAlgorithmLoading(false);
   };
