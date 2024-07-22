@@ -39,5 +39,9 @@
   ],
   "Enter Transaction Price": ["Enter Transaction Price", "הכנס מחיר עסקה"],
   "Transaction Price": ["Transaction Price", "מחיר עסקה"],
-  "Go For It": ["Go For It", "לך על זה"]
+  "Points": ["Points", "נקודות"],
+  "Lowest Price": ["Lowest Price", "מחיר הנמוך ביותר"],
+  "Nominal Value": ["Nominal Value", "ערך נומינלי"],
+  "Profit Type": ["Profit Type", "סוג העדפה"],
+  "Login successful": ["Login successful", "התחברות בוצעה בהצלחה"]
 }

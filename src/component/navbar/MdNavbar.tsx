@@ -5,6 +5,7 @@ import { Button, Box, styled } from '@mui/material/';
 
 import css from './styles.module.css';
 import { useTranslation } from 'react-i18next';
+import { useIsAuth } from '../../store/store';
 
 export type MdNavbarProps = {
   pages: {
@@ -39,6 +40,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const MdNavbar = ({ pages }: MdNavbarProps) => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
+  const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
   const [, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleCloseNavMenu = () => {
@@ -63,14 +65,14 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
         />
       </BoxContainer>
       <BoxContent>
-        {pages &&
+        {isAuthenticate &&
+          pages &&
           pages.map(({ title, path }) => (
             <NavLink key={path} to={path} style={{ textDecoration: 'none' }}>
               <StyledButton
                 key={path}
                 onClick={handleCloseNavMenu}
                 id={pathname === path ? css['selected'] : ''}
-                // className={pathname === path ? css['selected'] : ''}
               >
                 {t(title)}
               </StyledButton>

@@ -1,7 +1,8 @@
-import { useState } from 'react';
-
-import { NavLink } from 'react-router-dom';
-
+import { useForm, Controller } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
   Avatar,
   Button,
@@ -11,45 +12,75 @@ import {
   Typography,
   Container,
   useTheme,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
 } from '@mui/material/';
-
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next';
+import { handleLogin, handleRegister, toastify } from '../../utils/utils';
+import { useIsAuth } from '../../store/store';
+import { useEffect } from 'react';
 
-export type SignUpType = {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
-  password: string;
-};
+// Define Zod schema
+const schema = z.object({
+  firstName: z
+    .string()
+    .min(2, 'Valid name is required')
+    .regex(/^[A-Za-z]+$/, 'First name can only contain letters'),
+  lastName: z
+    .string()
+    .min(2, 'Valid name is required')
+    .regex(/^[A-Za-z]+$/, 'Last name can only contain letters'),
+  email: z.string().email('Invalid email was inserted'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  userPreferences: z.object({
+    profitType: z.enum(['points', 'lowestPrice', 'nominalValue']).optional(),
+  }),
+});
+
+export type SignUpType = z.infer<typeof schema>;
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const theme = useTheme();
-  const [formData, setFormData] = useState<SignUpType>({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
-    password: '',
-  });
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setFormData({
+  const { control, handleSubmit, reset } = useForm<SignUpType>({
+    resolver: zodResolver(schema),
+    defaultValues: {
       firstName: '',
       lastName: '',
-      phone: '',
       email: '',
       password: '',
-    });
+      userPreferences: {
+        profitType: 'nominalValue',
+      },
+    },
+  });
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
+
+  const onSubmit = async (data: SignUpType) => {
+    const statusResponse = await handleRegister(data);
+    if (statusResponse === 201) {
+      toastify({
+        type: 'success',
+        message: 'User created successfully',
+        position: 'top-right',
+      });
+      await handleLogin(data.email, data.password);
+      setIsAuthenticate(true);
+      navigate('/');
+    }
+    reset();
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticate(true);
+      navigate('/');
+    }
+  }, [setIsAuthenticate]);
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -67,69 +98,120 @@ const SignUpPage = () => {
         <Typography component='h1' variant='h5'>
           {t('SignUp')}
         </Typography>
-        <Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box
+          component='form'
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete='given-name'
+              <Controller
                 name='firstName'
-                required
-                fullWidth
-                id='firstName'
-                label={t('First Name')}
-                autoFocus
-                onChange={onChange}
-                value={formData.firstName}
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    autoComplete='given-name'
+                    required
+                    fullWidth
+                    id='firstName'
+                    label={t('First Name')}
+                    autoFocus
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id='lastName'
-                label={t('Last Name')}
+              <Controller
                 name='lastName'
-                autoComplete='family-name'
-                onChange={onChange}
-                value={formData.lastName}
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    required
+                    fullWidth
+                    id='lastName'
+                    label={t('Last Name')}
+                    autoComplete='family-name'
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id='phone'
-                label={t('Phone')}
-                name='phone'
-                autoComplete='phone'
-                onChange={onChange}
-                value={formData.phone}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id='email'
-                label={t('Email')}
+              <Controller
                 name='email'
-                autoComplete='email'
-                onChange={onChange}
-                value={formData.email}
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    required
+                    fullWidth
+                    id='email'
+                    label={t('Email')}
+                    autoComplete='email'
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
+              <Controller
                 name='password'
-                label={t('Password')}
-                type='password'
-                id='password'
-                autoComplete='new-password'
-                onChange={onChange}
-                value={formData.password}
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    {...field}
+                    required
+                    fullWidth
+                    name='password'
+                    label={t('Password')}
+                    type='password'
+                    id='password'
+                    autoComplete='new-password'
+                    error={!!fieldState.error}
+                    helperText={fieldState.error?.message}
+                  />
+                )}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth required>
+                <InputLabel id='profitType-label'>
+                  {t('Profit Type')}
+                </InputLabel>
+                <Controller
+                  name='userPreferences.profitType'
+                  control={control}
+                  render={({ field, fieldState }) => (
+                    <>
+                      <Select
+                        {...field}
+                        labelId='profitType-label'
+                        id='profitType'
+                        label={t('Profit Type')}
+                        error={!!fieldState.error}
+                      >
+                        <MenuItem value='points'>{t('Points')}</MenuItem>
+                        <MenuItem value='lowestPrice'>
+                          {t('Lowest Price')}
+                        </MenuItem>
+                        <MenuItem value='nominalValue'>
+                          {t('Nominal Value')}
+                        </MenuItem>
+                      </Select>
+                      <Typography variant='caption' color='error'>
+                        {fieldState.error?.message}
+                      </Typography>
+                    </>
+                  )}
+                />
+              </FormControl>
             </Grid>
           </Grid>
           <Button

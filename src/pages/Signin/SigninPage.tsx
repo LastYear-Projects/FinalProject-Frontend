@@ -1,7 +1,8 @@
-import { useState } from 'react';
-
-import { NavLink } from 'react-router-dom';
-
+import { useForm, Controller } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import {
   Avatar,
   Button,
@@ -12,36 +13,51 @@ import {
   Container,
   useTheme,
 } from '@mui/material';
-
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next';
+import { handleLogin } from '../../utils/utils';
+import { useIsAuth } from '../../store/store';
+import { useEffect } from 'react';
 
-export type SignInType = {
-  email: string;
-  password: string;
-};
+// Define Zod schema
+const schema = z.object({
+  email: z.string().email('Invalid email was inserted'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+});
 
-export default function SignIn() {
+export type SignInType = z.infer<typeof schema>;
+
+const SignIn = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const theme = useTheme();
-  const [formData, setFormData] = useState<SignInType>({
-    email: '',
-    password: '',
-  });
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(formData);
-    setFormData({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<SignInType>({
+    resolver: zodResolver(schema),
+    defaultValues: {
       email: '',
       password: '',
-    });
+    },
+  });
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
+
+  const onSubmit = async (data: SignInType) => {
+    await handleLogin(data.email, data.password);
+    setIsAuthenticate(true);
+    navigate('/');
+    reset();
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticate(true);
+      navigate('/');
+    }
+  }, [setIsAuthenticate]);
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -59,30 +75,48 @@ export default function SignIn() {
         <Typography component='h1' variant='h5'>
           {t('SignIn')}
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            id='email'
-            label={t('Email')}
+        <Box
+          component='form'
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          sx={{ mt: 1 }}
+        >
+          <Controller
             name='email'
-            autoComplete='email'
-            autoFocus
-            value={formData.email}
-            onChange={onChange}
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                margin='normal'
+                required
+                fullWidth
+                id='email'
+                label={t('Email')}
+                autoComplete='email'
+                autoFocus
+                error={!!errors.email}
+                helperText={errors.email?.message}
+              />
+            )}
           />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
+          <Controller
             name='password'
-            label={t('Password')}
-            type='password'
-            id='password'
-            autoComplete='current-password'
-            value={formData.password}
-            onChange={onChange}
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                margin='normal'
+                required
+                fullWidth
+                name='password'
+                label={t('Password')}
+                type='password'
+                id='password'
+                autoComplete='current-password'
+                error={!!errors.password}
+                helperText={errors.password?.message}
+              />
+            )}
           />
           <Button
             type='submit'
@@ -114,4 +148,6 @@ export default function SignIn() {
       </Box>
     </Container>
   );
-}
+};
+
+export default SignIn;

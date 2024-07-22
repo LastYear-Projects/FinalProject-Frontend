@@ -1,10 +1,19 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useIsAuth } from '../../store/store';
 
 const PrivateRoute = ({ children }: React.PropsWithChildren) => {
-  const isAuthenticated = true; // Take the id from the localStorage and check if it is valid.
+  const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
 
-  return isAuthenticated ? children : <Navigate to="/signin" />;
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticate(true);
+    }
+  }, [isAuthenticate, setIsAuthenticate]);
+
+  return isAuthenticate ? children : <Navigate to='/signin' />;
 };
 
 export default PrivateRoute;

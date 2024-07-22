@@ -81,7 +81,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
                   sx={{
                     flexGrow: 1,
                     padding: '0 2rem',
-                    maxWidth: '14rem',
+                    maxWidth: { xs: '10rem', sm: '50rem' },
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
