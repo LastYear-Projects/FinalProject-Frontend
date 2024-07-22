@@ -27,11 +27,11 @@ const schema = z.object({
   firstName: z
     .string()
     .min(2, 'Valid name is required')
-    .regex(/^[A-Za-z]+$/, 'First name can only contain letters'),
+    .regex(/^[A-Za-z\u0590-\u05FF]+$/, 'First name can only contain letters'),
   lastName: z
     .string()
     .min(2, 'Valid name is required')
-    .regex(/^[A-Za-z]+$/, 'Last name can only contain letters'),
+    .regex(/^[A-Za-z\u0590-\u05FF]+$/, 'Last name can only contain letters'),
   email: z.string().email('Invalid email was inserted'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   userPreferences: z.object({
