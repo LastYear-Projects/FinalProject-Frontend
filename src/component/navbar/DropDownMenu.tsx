@@ -11,6 +11,7 @@ import {
   useTheme,
 } from '@mui/material/';
 import { useTranslation } from 'react-i18next';
+import { useIsAuth } from '../../store/store';
 
 export type DropDownMenu = {
   settings: {
@@ -25,6 +26,8 @@ const defaultProfilePicture =
 const DropDownMenu = ({ settings }: DropDownMenu) => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
@@ -40,7 +43,9 @@ const DropDownMenu = ({ settings }: DropDownMenu) => {
 
   const handleNavigate = (title: string, path: string) => {
     if (title === 'Logout') {
-      // Logout logic
+      setIsAuthenticate(false);
+      localStorage.removeItem('token');
+      navigate('/signin');
     } else {
       navigate(path);
     }
@@ -48,44 +53,46 @@ const DropDownMenu = ({ settings }: DropDownMenu) => {
   };
 
   return (
-    <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title='Open menu'>
-        <IconButton onClick={handleOpenUserMenu}>
-          <Avatar alt='User Profile' src={defaultProfilePicture} />
-        </IconButton>
-      </Tooltip>
-      <Menu
-        sx={{ mt: '45px' }}
-        id='menu-appbar'
-        anchorEl={anchorElUser}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}
-      >
-        {settings &&
-          settings.map(({ title, path }) => (
-            <MenuItem key={title} onClick={() => handleNavigate(title, path)}>
-              <Typography
-                sx={{
-                  color: theme.palette.text.primary,
-                  fontWeight: theme.typography.fontWeightBold,
-                }}
-                textAlign='center'
-              >
-                {t(title)}
-              </Typography>
-            </MenuItem>
-          ))}
-      </Menu>
-    </Box>
+    isAuthenticate && (
+      <Box sx={{ flexGrow: 0 }}>
+        <Tooltip title='Open menu'>
+          <IconButton onClick={handleOpenUserMenu}>
+            <Avatar alt='User Profile' src={defaultProfilePicture} />
+          </IconButton>
+        </Tooltip>
+        <Menu
+          sx={{ mt: '45px' }}
+          id='menu-appbar'
+          anchorEl={anchorElUser}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          {settings &&
+            settings.map(({ title, path }) => (
+              <MenuItem key={title} onClick={() => handleNavigate(title, path)}>
+                <Typography
+                  sx={{
+                    color: theme.palette.text.primary,
+                    fontWeight: theme.typography.fontWeightBold,
+                  }}
+                  textAlign='center'
+                >
+                  {t(title)}
+                </Typography>
+              </MenuItem>
+            ))}
+        </Menu>
+      </Box>
+    )
   );
 };
 export default DropDownMenu;

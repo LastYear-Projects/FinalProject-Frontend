@@ -13,6 +13,7 @@ import {
 
 import { Menu as MenuIcon } from '@mui/icons-material/';
 import { useTranslation } from 'react-i18next';
+import { useIsAuth } from '../../store/store';
 
 export type XsNavbarProps = {
   pages: {
@@ -40,6 +41,7 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -81,30 +83,35 @@ const XsNavbar = ({ pages }: XsNavbarProps) => {
           }}
         >
           {pages &&
-            totalPages.map(({ title, path }) => (
-              <NavLink
-                key={path}
-                to={path}
-                style={{
-                  textDecoration: 'none',
-                }}
-              >
-                <MenuItem key={title} onClick={handleCloseNavMenu}>
-                  <Typography
-                    sx={{
-                      color: theme.palette.text.primary,
-                      fontWeight: theme.typography.fontWeightBold,
-                    }}
-                    textAlign='center'
-                  >
-                    {t(title)}
-                  </Typography>
-                </MenuItem>
-              </NavLink>
-            ))}
+            totalPages.map(({ title, path }) => {
+              if (isAuthenticate && (title === 'SignIn' || title === 'SignUp'))
+                return;
+              if (!isAuthenticate && title === 'Home') return;
+
+              return (
+                <NavLink
+                  key={path}
+                  to={path}
+                  style={{
+                    textDecoration: 'none',
+                  }}
+                >
+                  <MenuItem key={title} onClick={handleCloseNavMenu}>
+                    <Typography
+                      sx={{
+                        color: theme.palette.text.primary,
+                        fontWeight: theme.typography.fontWeightBold,
+                      }}
+                      textAlign='center'
+                    >
+                      {t(title)}
+                    </Typography>
+                  </MenuItem>
+                </NavLink>
+              );
+            })}
         </Menu>
       </BoxContainer>
-      <BoxContainer></BoxContainer>
     </>
   );
 };

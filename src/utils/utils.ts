@@ -1,6 +1,8 @@
 import { Bounce, toast, ToastOptions } from 'react-toastify';
 import { ToastifyProps } from '../globalTypes';
 import axios from 'axios';
+import { SignUpType } from '../pages/Signup/SignupPage';
+import { useIsAuth } from '../store/store';
 
 export const getBaseUrl = () => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
@@ -67,7 +69,7 @@ export const getAlgorithmResult = async (
   businessId: string
 ) => {
   const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlkM2NhZjBiZDVmYzgzZmZiYmI0NWMiLCJpYXQiOjE3MjE1ODcxODEsImV4cCI6MTcyNzU4NzEyMX0.MY8dUSTa8-yODduYwJ9rgRuGy7r48f5SlXhElA2lEZQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlkM2NhZjBiZDVmYzgzZmZiYmI0NWMiLCJpYXQiOjE3MjE2NTkxNjMsImV4cCI6MTcyNzY1OTEwM30.zd1CACVxP6DDvXDZ0lHLHgBIz9TJXDSRV52OCNJMsuo';
   try {
     const response = await axios.get(
       `${getBaseUrl()}/recommendation/?transactionAmount=${transactionAmount}&businessId=${businessId}`,
@@ -91,4 +93,35 @@ export const getCreditCard = async (cardId: string) => {
 export const convertToNumber = (item: string) => {
   if (!item) return '';
   return Number(item).toFixed(2);
+};
+
+export const handleRegister = async (data: SignUpType) => {
+  try {
+    const response = await axios.post(`${getBaseUrl()}/auth/register`, data);
+    return response.status;
+  } catch (e: any) {
+    console.error(e?.message);
+  }
+};
+
+export const handleLogin = async (email: string, password: string) => {
+  try {
+    const response = await axios.post(`${getBaseUrl()}/auth/login`, {
+      email,
+      password,
+    });
+    const token = response.data.token;
+    localStorage.setItem('token', token);
+    toastify({
+      type: 'success',
+      message: 'Login successful',
+      position: 'top-right',
+    });
+  } catch (e: any) {
+    toastify({
+      type: 'error',
+      message: e?.response?.data?.error,
+      position: 'top-right',
+    });
+  }
 };
