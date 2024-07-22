@@ -43,5 +43,6 @@
   "Lowest Price": ["Lowest Price", "מחיר הנמוך ביותר"],
   "Nominal Value": ["Nominal Value", "ערך נומינלי"],
   "Profit Type": ["Profit Type", "סוג העדפה"],
-  "Login successful": ["Login successful", "התחברות בוצעה בהצלחה"]
+  "Login successful": ["Login successful", "התחברות בוצעה בהצלחה"],
+  "User Preferences": ["User Preferences", "העדפות משתמש"]
 }
