@@ -1,13 +1,7 @@
 import { Bounce, toast, ToastOptions } from 'react-toastify';
 import { ToastifyProps } from '../globalTypes';
-import axios from 'axios';
 import { SignUpType } from '../pages/Signup/SignupPage';
-import { useIsAuth } from '../store/store';
-
-export const getBaseUrl = () => {
-  const baseUrl = import.meta.env.VITE_BASE_URL;
-  return baseUrl;
-};
+import axiosRequest from './restApi';
 
 export const isHebrew = (text: string) => {
   return /[\u0590-\u05FF]/.test(text);
@@ -68,17 +62,11 @@ export const getAlgorithmResult = async (
   transactionAmount: number,
   businessId: string
 ) => {
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjlkM2NhZjBiZDVmYzgzZmZiYmI0NWMiLCJpYXQiOjE3MjE2NTkxNjMsImV4cCI6MTcyNzY1OTEwM30.zd1CACVxP6DDvXDZ0lHLHgBIz9TJXDSRV52OCNJMsuo';
   try {
-    const response = await axios.get(
-      `${getBaseUrl()}/recommendation/?transactionAmount=${transactionAmount}&businessId=${businessId}`,
-      {
-        headers: {
-          Authorization: token,
-        },
-      }
-    );
+    const response = await axiosRequest({
+      url: `/recommendation/?transactionAmount=${transactionAmount}&businessId=${businessId}`,
+      method: 'GET',
+    });
     return response.data;
   } catch (e: any) {
     console.error(e?.message);
@@ -86,7 +74,10 @@ export const getAlgorithmResult = async (
 };
 
 export const getCreditCard = async (cardId: string) => {
-  const response = await axios.get(`${getBaseUrl()}/cards/${cardId}`);
+  const response = await axiosRequest({
+    url: `/cards/${cardId}`,
+    method: 'GET',
+  });
   return response.data;
 };
 
@@ -97,7 +88,11 @@ export const convertToNumber = (item: string) => {
 
 export const handleRegister = async (data: SignUpType) => {
   try {
-    const response = await axios.post(`${getBaseUrl()}/auth/register`, data);
+    const response = await axiosRequest({
+      url: `/auth/register`,
+      method: 'POST',
+      data,
+    });
     return response.status;
   } catch (e: any) {
     console.error(e?.message);
@@ -106,9 +101,10 @@ export const handleRegister = async (data: SignUpType) => {
 
 export const handleLogin = async (email: string, password: string) => {
   try {
-    const response = await axios.post(`${getBaseUrl()}/auth/login`, {
-      email,
-      password,
+    const response = await axiosRequest({
+      url: '/auth/login',
+      method: 'POST',
+      data: { email, password },
     });
     const token = response.data.token;
     localStorage.setItem('token', token);

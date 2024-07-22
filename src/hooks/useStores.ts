@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { StoreCardProps } from '../component/storeCard/StoreCard';
 import { useCreditCard, useStore, useUser } from '../store/store';
-import { getBaseUrl } from '../utils/utils';
 import { CreditCardType, UserType } from '../globalTypes';
+import axiosRequest from '../utils/restApi';
 
 export const fetchStores = async (): Promise<StoreCardProps[]> => {
   try {
-    const response = await axios.get(`${getBaseUrl()}/businesses`);
+    const response = await axiosRequest({ url: '/businesses', method: 'GET' });
     return response.data;
   } catch (e: any) {
     console.error(e?.message);
@@ -80,7 +79,7 @@ export const useUserQuery = (token: string) => {
 
 const fetchCreditCards = async (): Promise<CreditCardType[]> => {
   try {
-    const response = await axios.get(`${getBaseUrl()}/cards`);
+    const response = await axiosRequest({ url: '/cards', method: 'GET' });
     return response.data;
   } catch (e: any) {
     console.error(e?.message);
