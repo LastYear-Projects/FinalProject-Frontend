@@ -61,8 +61,6 @@ const SignUpPage = () => {
 
   const onSubmit = async (data: SignUpType) => {
     const statusResponse = await handleRegister(data);
-    console.log(data);
-
     if (statusResponse === 201) {
       toastify({
         type: 'success',
