@@ -23,17 +23,17 @@ const StoresSection = ({
   filteredData: StoreCardProps[];
 }) => {
   return (
-    <div>
+    <Box>
       <FlexedBox>
         <GridContainer container rowSpacing={6} columnSpacing={6}>
-          {filteredData.map((storeCardData, index) => (
+          {filteredData?.map((storeCardData, index) => (
             <Grid item key={index}>
               <StoreCard key={index} {...storeCardData} />
             </Grid>
           ))}
         </GridContainer>
       </FlexedBox>
-    </div>
+    </Box>
   );
 };
 
