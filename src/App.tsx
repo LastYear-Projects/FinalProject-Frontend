@@ -14,8 +14,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import AuthCheck from './pages/AuthCheck/AuthCheck';
 
-// TODO -> Make all the routes except the SignIn/SignUp page private.
 const router = [
   {
     path: '/',
@@ -23,7 +23,7 @@ const router = [
     isPrivate: true,
   },
   {
-    path: '/profile', //TODO -> add /profile/:id and get the id from the url.
+    path: '/profile',
     component: ProfilePage,
     isPrivate: true,
   },
@@ -67,29 +67,31 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <Router>
-          <BoxContainer>
-            <Navbar />
-            <BoxContent>
-              <Routes>
-                {router.map(({ path, component: Component, isPrivate }) => (
-                  <Route
-                    key={path}
-                    path={path}
-                    element={
-                      isPrivate ? (
-                        <PrivateRoute>
+          <AuthCheck>
+            <BoxContainer>
+              <Navbar />
+              <BoxContent>
+                <Routes>
+                  {router.map(({ path, component: Component, isPrivate }) => (
+                    <Route
+                      key={path}
+                      path={path}
+                      element={
+                        isPrivate ? (
+                          <PrivateRoute>
+                            <Component />
+                          </PrivateRoute>
+                        ) : (
                           <Component />
-                        </PrivateRoute>
-                      ) : (
-                        <Component />
-                      )
-                    }
-                  />
-                ))}
-              </Routes>
-            </BoxContent>
-            <Footer />
-          </BoxContainer>
+                        )
+                      }
+                    />
+                  ))}
+                </Routes>
+              </BoxContent>
+              <Footer />
+            </BoxContainer>
+          </AuthCheck>
         </Router>
         <ToastContainer />
       </ThemeProvider>

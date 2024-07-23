@@ -1,5 +1,5 @@
 import { useForm, Controller } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -16,7 +16,6 @@ import {
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
 import { handleLogin } from '../../utils/utils';
 import { useIsAuth } from '../../store/store';
-import { useEffect } from 'react';
 
 // Define Zod schema
 const schema = z.object({
@@ -43,6 +42,7 @@ const SignIn = () => {
     },
   });
   const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
+  const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
 
   const onSubmit = async (data: SignInType) => {
     await handleLogin(data.email, data.password);
@@ -51,13 +51,9 @@ const SignIn = () => {
     reset();
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticate(true);
-      navigate('/');
-    }
-  }, [setIsAuthenticate]);
+  if (isAuthenticate) {
+    return <Navigate to='/' />;
+  }
 
   return (
     <Container component='main' maxWidth='xs'>
