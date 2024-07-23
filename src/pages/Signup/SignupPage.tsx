@@ -34,7 +34,7 @@ const schema = z.object({
   email: z.string().email('Invalid email was inserted'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   userPreferences: z.object({
-    profitType: z.enum(['points', 'lowestPrice', 'nominalValue']).optional(),
+    profitType: z.enum(['points', 'lowestPrice', 'nominalProfit']).optional(),
   }),
 });
 
@@ -54,7 +54,7 @@ const SignUpPage = () => {
       email: '',
       password: '',
       userPreferences: {
-        profitType: 'nominalValue',
+        profitType: 'nominalProfit',
       },
     },
   });
@@ -197,8 +197,8 @@ const SignUpPage = () => {
                         <MenuItem value='lowestPrice'>
                           {t('Lowest Price')}
                         </MenuItem>
-                        <MenuItem value='nominalValue'>
-                          {t('Nominal Value')}
+                        <MenuItem value='nominalProfit'>
+                          {t('Nominal Profit')}
                         </MenuItem>
                       </Select>
                       <Typography variant='caption' color='error'>

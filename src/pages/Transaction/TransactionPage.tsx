@@ -37,7 +37,7 @@ const TransactionPage = () => {
 
     const data = await getAlgorithmResult(transactionPrice, storeId!);
 
-    const results: Promise<CreditCardType>[] = data.map(async (card) => {
+    const results: Promise<CreditCardType>[] = data?.map(async (card) => {
       const creditCard = await getCreditCard(card.creditCardId);
       return {
         ...creditCard,
