@@ -3,21 +3,21 @@ import { Box, IconButton, Typography, styled } from '@mui/material';
 import { isHebrew } from '../../utils/utils';
 import { CardKeys, Cards } from '../../globalTypes';
 
-const BoxContainer = styled(Box)<{ background: string; textColor: string }>(
-  ({ background, textColor }) => ({
-    width: '18rem',
-    height: '11.25rem',
-    backgroundColor: background,
-    borderRadius: '0.625rem',
-    padding: '1rem 1.5rem',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    color: textColor,
-    fontFamily: 'Arial, sans-serif',
-    position: 'relative',
-  })
-);
+const BoxContainer = styled(Box, {
+  shouldForwardProp: (props) => props !== 'background' && props !== 'textColor',
+})<{ background: string; textColor: string }>(({ background, textColor }) => ({
+  width: '18rem',
+  height: '11.25rem',
+  backgroundColor: background,
+  borderRadius: '0.625rem',
+  padding: '1rem 1.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  color: textColor,
+  fontFamily: 'Arial, sans-serif',
+  position: 'relative',
+}));
 
 const FlexBox = styled(Box)({
   display: 'flex',
