@@ -31,7 +31,6 @@ const themeOptions: ThemeOptions = {
     },
     background: {
       default: COLORS.BACKGROUND,
-      paper: COLORS.PRIMARY,
     },
   },
   components: {

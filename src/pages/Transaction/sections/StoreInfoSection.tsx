@@ -64,7 +64,7 @@ const StoreInfoSection = ({
   }, [currentStore, setStores]);
 
   return isLoading ? (
-    <CircularProgress sx={{ color: theme.palette.background.paper }} />
+    <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
   ) : (
     <Box
       sx={{
