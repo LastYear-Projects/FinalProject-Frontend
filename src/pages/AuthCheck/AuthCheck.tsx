@@ -19,9 +19,7 @@ const AuthCheck: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [setIsAuthenticate]);
 
   if (isLoading) {
-    return (
-      <CircularProgress sx={{ color: theme.palette.background.default }} />
-    );
+    return <CircularProgress sx={{ color: theme.palette.background.paper }} />;
   }
 
   return <>{children}</>;

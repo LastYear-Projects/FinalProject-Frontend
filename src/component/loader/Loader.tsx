@@ -8,7 +8,7 @@ export type LoaderProps = {
 const Loader = ({ isLoading, children }: LoaderProps) => {
   const theme = useTheme();
   return isLoading ? (
-    <CircularProgress sx={{ color: theme.palette.background.default }} />
+    <CircularProgress sx={{ color: theme.palette.background.paper }} />
   ) : (
     children
   );

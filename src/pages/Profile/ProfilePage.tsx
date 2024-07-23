@@ -49,7 +49,7 @@ const ProfilePage = () => {
   };
 
   return isUserLoading ? (
-    <CircularProgress sx={{ color: theme.palette.background.default }} />
+    <CircularProgress sx={{ color: theme.palette.background.paper }} />
   ) : (
     <Box
       sx={{

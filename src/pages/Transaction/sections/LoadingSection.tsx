@@ -19,7 +19,7 @@ const LoadingSection = ({ theme, t }) => (
     >
       {t('Waiting for algorithm result...')}
     </Typography>
-    <CircularProgress sx={{ color: theme.palette.background.default }} />
+    <CircularProgress sx={{ color: theme.palette.background.paper }} />
   </Box>
 );
 

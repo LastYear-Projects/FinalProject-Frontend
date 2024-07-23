@@ -51,7 +51,7 @@ const HomePage = () => {
   };
 
   return isLoading ? (
-    <CircularProgress sx={{ color: theme.palette.background.default }} />
+    <CircularProgress sx={{ color: theme.palette.background.paper }} />
   ) : (
     <BoxContainer>
       <StyledTextField
