@@ -7,7 +7,12 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-import { ISRAEL_FLAG, USA_FLAG } from '../../constants/constants';
+import {
+  CHINA_FLAG,
+  FRENCH_FLAG,
+  ISRAEL_FLAG,
+  USA_FLAG,
+} from '../../constants/constants';
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
@@ -17,12 +22,32 @@ const LanguageSwitcher: React.FC = () => {
   };
 
   const getLanguageLabel = (lang: string) => {
-    return lang === 'en' ? 'en' : 'he';
+    switch (lang) {
+      case 'en':
+        return 'en';
+      case 'he':
+        return 'he';
+      case 'fr':
+        return 'fr';
+    }
   };
 
   useEffect(() => {
     document.body.dir = i18n.dir();
   }, [i18n, i18n.language]);
+
+  const displayFlagImage = (value: string) => {
+    switch (value) {
+      case 'en':
+        return <img src={USA_FLAG} alt='English' width='15' height='15' />;
+      case 'he':
+        return <img src={ISRAEL_FLAG} alt='Hebrew' width='15' height='15' />;
+      case 'fr':
+        return <img src={FRENCH_FLAG} alt='French' width='15' height='15' />;
+      case 'zh':
+        return <img src={FRENCH_FLAG} alt='China' width='15' height='15' />;
+    }
+  };
 
   return (
     <Box display='flex' alignItems='center' sx={{ margin: '0 0.5rem' }}>
@@ -34,11 +59,7 @@ const LanguageSwitcher: React.FC = () => {
         displayEmpty
         renderValue={(value) => (
           <Box display='flex' alignItems='center'>
-            {value === 'en' ? (
-              <img src={USA_FLAG} alt='English' width='15' height='15' />
-            ) : (
-              <img src={ISRAEL_FLAG} alt='Hebrew' width='15' height='15' />
-            )}
+            {displayFlagImage(value)}
             <Typography variant='body1'>
               {getLanguageLabel(value as string)}
             </Typography>
@@ -58,6 +79,22 @@ const LanguageSwitcher: React.FC = () => {
             <img src={ISRAEL_FLAG} alt='Hebrew' width='15' height='15' />
             <Typography variant='body1' marginLeft={1}>
               עברית
+            </Typography>
+          </Box>
+        </MenuItem>
+        <MenuItem value='fr'>
+          <Box display='flex' alignItems='center'>
+            <img src={FRENCH_FLAG} alt='French' width='15' height='15' />
+            <Typography variant='body1' marginLeft={1}>
+              Français
+            </Typography>
+          </Box>
+        </MenuItem>
+        <MenuItem value='zh'>
+          <Box display='flex' alignItems='center'>
+            <img src={CHINA_FLAG} alt='China' width='15' height='15' />
+            <Typography variant='body1' marginLeft={1}>
+              中国人
             </Typography>
           </Box>
         </MenuItem>

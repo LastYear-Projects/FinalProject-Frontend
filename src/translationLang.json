@@ -1,48 +1,116 @@
 {
-  "Home": ["Home", "בית"],
-  "Choose Store": ["Choose Store", "מעבר לחנות"],
-  "Search": ["Search", "חיפוש"],
+  "Home": ["Home", "בית", "Accueil", "首页"],
+  "Choose Store": [
+    "Choose Store",
+    "מעבר לחנות",
+    "Choisir le magasin",
+    "选择商店"
+  ],
+  "Search": ["Search", "חיפוש", "Rechercher", "搜索"],
   "Waiting for algorithm result": [
     "Waiting for algorithm result",
-    "מחכה לתוצאות האלגוריתם"
+    "מחכה לתוצאות האלגוריתם",
+    "En attente du résultat de l'algorithme",
+    "等待算法结果"
   ],
-  "FullName": ["FullName", "שם מלא"],
-  "CreditCards": ["Credit Cards", "כרטיסי אשראי"],
-  "Add New Cards": ["Add New Cards", "הוספת כרטיסי אשראי"],
-  "No stores found": ["No stores found", "לא נמצאו חנויות"],
+  "FullName": ["FullName", "שם מלא", "Nom complet", "全名"],
+  "CreditCards": ["Credit Cards", "כרטיסי אשראי", "Cartes de crédit", "信用卡"],
+  "Add New Cards": [
+    "Add New Cards",
+    "הוספת כרטיסי אשראי",
+    "Ajouter de nouvelles cartes",
+    "添加新卡"
+  ],
+  "No stores found": [
+    "No stores found",
+    "לא נמצאו חנויות",
+    "Aucun magasin trouvé",
+    "未找到商店"
+  ],
   "No more cards to add": [
     "No more cards to add",
-    "לא ניתן להוסיף עוד כרטיסים"
+    "לא ניתן להוסיף עוד כרטיסים",
+    "Plus de cartes à ajouter",
+    "无法添加更多卡片"
   ],
-  "Update price": ["Update price", "עדכון מחיר"],
-  "SignIn": ["SignIn", "התחברות"],
-  "SignUp": ["SignUp", "הרשמה"],
-  "Profile": ["Profile", "פרופיל"],
-  "Profile Page": ["Profile Page", "עמוד פרופיל"],
-  "Logout": ["Logout", "התנתקות"],
-  "Email": ["Email Address", "כתובת אימייל"],
-  "email": ["Email Address", "כתובת אימייל"],
-  "First Name": ["First Name", "שם פרטי"],
-  "firstName": ["First Name", "שם פרטי"],
-  "Last Name": ["Last Name", "שם משפחה"],
-  "lastName": ["Last Name", "שם משפחה"],
-  "Phone": ["Phone", "מספר פלאפון"],
+  "Update price": [
+    "Update price",
+    "עדכון מחיר",
+    "Mettre à jour le prix",
+    "更新价格"
+  ],
+  "SignIn": ["SignIn", "התחברות", "Se connecter", "登录"],
+  "SignUp": ["SignUp", "הרשמה", "S'inscrire", "注册"],
+  "Profile": ["Profile", "פרופיל", "Profil", "个人资料"],
+  "Profile Page": [
+    "Profile Page",
+    "עמוד פרופיל",
+    "Page de profil",
+    "个人资料页面"
+  ],
+  "Logout": ["Logout", "התנתקות", "Déconnexion", "登出"],
+  "Email": ["Email Address", "כתובת אימייל", "Adresse e-mail", "电子邮件地址"],
+  "email": ["Email Address", "כתובת אימייל", "Adresse e-mail", "电子邮件地址"],
+  "First Name": ["First Name", "שם פרטי", "Prénom", "名"],
+  "firstName": ["First Name", "שם פרטי", "Prénom", "名"],
+  "Last Name": ["Last Name", "שם משפחה", "Nom de famille", "姓"],
+  "lastName": ["Last Name", "שם משפחה", "Nom de famille", "姓"],
+  "Phone": ["Phone", "מספר פלאפון", "Téléphone", "电话"],
   "Already have an account? Sign In": [
     "Already have an account? Sign In",
-    "כבר יש משתמש רשום? התחבר"
+    "כבר יש משתמש רשום? התחבר",
+    "Vous avez déjà un compte ? Connectez-vous",
+    "已有账户？登录"
   ],
-  "Password": ["Password", "סיסמה"],
-  "Forgot password?": ["Forgot password?", "שכחתי סיסמה"],
+  "Password": ["Password", "סיסמה", "Mot de passe", "密码"],
+  "Forgot password?": [
+    "Forgot password?",
+    "שכחתי סיסמה",
+    "Mot de passe oublié ?",
+    "忘记密码？"
+  ],
   "Don't have an account? Sign Up": [
     "Don't have an account? Sign Up",
-    "אין עדיין משתמש? הירשם עכשיו"
+    "אין עדיין משתמש? הירשם עכשיו",
+    "Vous n'avez pas de compte ? Inscrivez-vous",
+    "没有账户？注册"
   ],
-  "Enter Transaction Price": ["Enter Transaction Price", "הכנס מחיר עסקה"],
-  "Transaction Price": ["Transaction Price", "מחיר עסקה"],
-  "Points": ["Points", "נקודות"],
-  "Lowest Price": ["Lowest Price", "המחיר הנמוך ביותר"],
-  "Nominal Profit": ["Nominal Profit", "רווח נומינלי"],
-  "Profit Type": ["Profit Type", "סוג העדפה"],
-  "Login successful": ["Login successful", "ההתחברות בוצעה בהצלחה"],
-  "User Preferences": ["User Preferences", "העדפות משתמש"]
+  "Enter Transaction Price": [
+    "Enter Transaction Price",
+    "הכנס מחיר עסקה",
+    "Entrer le prix de la transaction",
+    "输入交易价格"
+  ],
+  "Transaction Price": [
+    "Transaction Price",
+    "מחיר עסקה",
+    "Prix de la transaction",
+    "交易价格"
+  ],
+  "Points": ["Points", "נקודות", "Points", "积分"],
+  "Lowest Price": [
+    "Lowest Price",
+    "המחיר הנמוך ביותר",
+    "Prix le plus bas",
+    "最低价格"
+  ],
+  "Nominal Profit": [
+    "Nominal Profit",
+    "רווח נומינלי",
+    "Profit nominal",
+    "名义利润"
+  ],
+  "Profit Type": ["Profit Type", "סוג העדפה", "Type de profit", "利润类型"],
+  "Login successful": [
+    "Login successful",
+    "ההתחברות בוצעה בהצלחה",
+    "Connexion réussie",
+    "登录成功"
+  ],
+  "User Preferences": [
+    "User Preferences",
+    "העדפות משתמש",
+    "Préférences de l'utilisateur",
+    "用户偏好"
+  ]
 }
