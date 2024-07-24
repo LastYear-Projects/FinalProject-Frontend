@@ -29,6 +29,8 @@ const LanguageSwitcher: React.FC = () => {
         return 'he';
       case 'fr':
         return 'fr';
+      case 'zh':
+        return 'ch';
     }
   };
 
@@ -45,7 +47,7 @@ const LanguageSwitcher: React.FC = () => {
       case 'fr':
         return <img src={FRENCH_FLAG} alt='French' width='15' height='15' />;
       case 'zh':
-        return <img src={FRENCH_FLAG} alt='China' width='15' height='15' />;
+        return <img src={CHINA_FLAG} alt='China' width='15' height='15' />;
     }
   };
 
