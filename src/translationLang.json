@@ -8,10 +8,10 @@
   ],
   "Search": ["Search", "חיפוש", "Rechercher", "搜索"],
   "Waiting for algorithm result": [
-    "Waiting for algorithm result",
-    "מחכה לתוצאות האלגוריתם",
-    "En attente du résultat de l'algorithme",
-    "等待算法结果"
+    "Waiting for algorithm result...",
+    "...מחכה לתוצאות האלגוריתם",
+    "En attente du résultat de l'algorithme...",
+    "等待算法结果..."
   ],
   "FullName": ["FullName", "שם מלא", "Nom complet", "全名"],
   "CreditCards": ["Credit Cards", "כרטיסי אשראי", "Cartes de crédit", "信用卡"],

@@ -80,7 +80,11 @@ const TransactionPage = () => {
         onClick={handleGetAlgorithmResult}
       />
       {isAlgorithmLoading ? (
-        <LoadingSection theme={theme} t={t} />
+        <LoadingSection
+          theme={theme}
+          t={t}
+          message='Waiting for algorithm result'
+        />
       ) : (
         creditCards.length > 0 && (
           <CreditCardListSection creditCards={creditCards} />

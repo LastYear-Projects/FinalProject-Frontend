@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  CircularProgress,
-  styled,
-  TextField,
-  useTheme,
-} from '@mui/material';
+import { Box, styled, TextField, useTheme } from '@mui/material';
 import { StoreCardProps } from '../../component/storeCard/StoreCard';
 import { useStoresQuery } from '../../hooks/useStores';
 import { useStore } from '../../store/store';
 import StoresSection from './sections/StoresSection';
+import LoadingSection from '../Transaction/sections/LoadingSection';
 
 const BoxContainer = styled(Box)(() => ({
   display: 'flex',
@@ -50,9 +45,11 @@ const HomePage = () => {
     );
   };
 
-  return isLoading ? (
-    <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
-  ) : (
+  if (isLoading || !stores) {
+    return <LoadingSection theme={theme} t={t} />;
+  }
+
+  return (
     <BoxContainer>
       <StyledTextField
         id='standard-basic'

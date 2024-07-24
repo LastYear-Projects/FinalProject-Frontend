@@ -1,6 +1,14 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
 
-const LoadingSection = ({ theme, t }) => (
+const LoadingSection = ({
+  theme,
+  t,
+  message = '',
+}: {
+  message?: string;
+  theme: any;
+  t: any;
+}) => (
   <Box
     sx={{
       display: 'flex',
@@ -17,7 +25,7 @@ const LoadingSection = ({ theme, t }) => (
         fontWeight: theme.typography.fontWeightBold,
       }}
     >
-      {t('Waiting for algorithm result...')}
+      {t(message)}
     </Typography>
     <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
   </Box>
