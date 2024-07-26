@@ -1,27 +1,38 @@
 // AuthCheck.tsx
 import React, { useEffect, useState } from 'react';
-import { useIsAuth } from '../../store/store';
-import { CircularProgress, useTheme } from '@mui/material';
+import { useIsAuth, useUser } from '../../store/store';
+import axiosRequest from '../../utils/restApi';
+import { toastify } from '../../utils/utils';
+import Loader from '../../component/loader/Loader';
 
 const AuthCheck: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const theme = useTheme();
-  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAuthenticate);
+  const { setUser } = useUser();
 
   useEffect(() => {
-    const checkAuth = () => {
-      const token = localStorage.getItem('token');
-      setIsAuthenticate(!!token);
-      setIsLoading(false);
+    const checkAuth = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axiosRequest({
+          url: '/auth/',
+          method: 'GET',
+        });
+        if (!response?.data) return;
+        setIsAuthenticate(!!token);
+        setUser(response.data);
+      } catch (e: any) {
+        toastify({ type: 'error', message: e?.message, position: 'top-right' });
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     checkAuth();
-  }, [setIsAuthenticate]);
+  }, [setIsAuthenticate, setUser]);
 
   if (isLoading) {
-    return (
-      <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
-    );
+    return <Loader />;
   }
 
   return <>{children}</>;

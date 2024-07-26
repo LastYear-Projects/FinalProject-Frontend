@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Box, CircularProgress, useTheme, styled } from '@mui/material';
+import { Box, useTheme, styled } from '@mui/material';
 import { getAlgorithmResult, getCreditCard } from '../../utils/utils';
 import { useStore } from '../../store/store';
 import { fetchStores } from '../../hooks/useStores';
@@ -9,6 +9,7 @@ import { CreditCardType } from '../../globalTypes';
 import LoadingSection from './sections/LoadingSection';
 import CreditCardListSection from './sections/CreditCardListSection';
 import StoreInfoSection from './sections/StoreInfoSection';
+import Loader from '../../component/loader/Loader';
 
 const StyledBox = styled(Box)(() => ({
   marginTop: 4,
@@ -70,7 +71,7 @@ const TransactionPage = () => {
   }, [currentStore, setStores]);
 
   return isLoading ? (
-    <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
+    <Loader />
   ) : (
     <StyledBox>
       <StoreInfoSection

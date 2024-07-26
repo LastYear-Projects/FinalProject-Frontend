@@ -18,8 +18,8 @@ import {
   FormControl,
 } from '@mui/material/';
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
-import { handleLogin, handleRegister, toastify } from '../../utils/utils';
-import { useIsAuth } from '../../store/store';
+import { handleRegister, onHandleSubmit, toastify } from '../../utils/utils';
+import { useIsAuth, useUser } from '../../store/store';
 
 // Define Zod schema
 const schema = z.object({
@@ -41,8 +41,8 @@ const schema = z.object({
 export type SignUpType = z.infer<typeof schema>;
 
 const SignUpPage = () => {
-  const { isAuthenticate } = useIsAuth();
-  const setIsAutenticate = useIsAuth((state) => state.setIsAutenticate);
+  const { isAuthenticate, setIsAuthenticate } = useIsAuth();
+  const { setUser } = useUser();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -71,11 +71,18 @@ const SignUpPage = () => {
         message: 'User created successfully',
         position: 'top-right',
       });
-      await handleLogin(data.email, data.password);
-      setIsAutenticate(true);
-      navigate('/');
+
+      const email = data.email;
+      const password = data.password;
+      await onHandleSubmit({
+        email,
+        password,
+        setIsAuthenticate,
+        setUser,
+        navigate,
+        reset,
+      });
     }
-    reset();
   };
 
   return (
