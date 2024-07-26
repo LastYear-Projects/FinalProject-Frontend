@@ -1,57 +1,54 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axiosRequest from '../../utils/restApi';
+import { useNavigate } from 'react-router';
+import { useUser } from '../../store/store';
 
-const ResetPassword = () => {
-  const [step, setStep] = useState('email');
+const ResetPassword: React.FC = () => {
   const [email, setEmail] = useState('');
-  const [otp, setOTP] = useState('');
+  const [isEmailSent, setIsEmailSent] = useState(false);
+  const [isOtpVerified, setIsOtpVerified] = useState(false);
   const [newPassword, setNewPassword] = useState('');
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState('');
+  const currentUser = useUser((state) => state.user);
 
-  const handleEmailSubmit = async (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/');
+    }
+  }, [navigate, currentUser]);
+
+  const handleSendOtp = async () => {
     try {
       await axiosRequest({
-        url: '/auth/reset-password-request',
+        data: { email },
         method: 'POST',
-        data: {
-          email,
-        },
-      });
-      setStep('otp');
+        url: '/auth/send-otp',
+      }).then(() => setIsEmailSent(true));
     } catch (error) {
-      console.error('Error sending reset password request', error);
+      console.error('Error sending OTP', error);
     }
   };
 
-  const handleOTPSubmit = async (e) => {
-    e.preventDefault();
+  const handleVerifyOtp = async () => {
     try {
-      await axiosRequest({
-        url: '/auth/verify-otp',
+      axiosRequest({
+        data: { email, otp },
         method: 'POST',
-        data: {
-          email,
-          otp,
-        },
-      });
-      setStep('newPassword');
+        url: '/auth/verify-otp',
+      }).then(() => setIsOtpVerified(true));
     } catch (error) {
       console.error('Error verifying OTP', error);
     }
   };
 
-  const handlePasswordReset = async (e) => {
-    e.preventDefault();
+  const handleChangePassword = async () => {
     try {
       await axiosRequest({
-        url: '/auth/reset-password',
+        data: { email, newPassword },
         method: 'POST',
-        data: {
-          email,
-          newPassword,
-        },
-      });
-      alert('Password reset successfully');
+        url: '/auth/reset-password',
+      }).then(() => navigate('/signin'));
     } catch (error) {
       console.error('Error resetting password', error);
     }
@@ -59,43 +56,43 @@ const ResetPassword = () => {
 
   return (
     <div>
-      {step === 'email' && (
-        <form onSubmit={handleEmailSubmit}>
+      {!isEmailSent && (
+        <div>
+          <h2>Reset Password</h2>
           <input
             type='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Enter your email'
-            required
           />
-          <button type='submit'>Send OTP</button>
-        </form>
+          <button onClick={handleSendOtp}>Send OTP</button>
+        </div>
       )}
 
-      {step === 'otp' && (
-        <form onSubmit={handleOTPSubmit}>
+      {isEmailSent && !isOtpVerified && (
+        <div>
+          <h2>Verify OTP</h2>
           <input
             type='text'
             value={otp}
-            onChange={(e) => setOTP(e.target.value)}
+            onChange={(e) => setOtp(e.target.value)}
             placeholder='Enter OTP'
-            required
           />
-          <button type='submit'>Verify OTP</button>
-        </form>
+          <button onClick={handleVerifyOtp}>Verify OTP</button>
+        </div>
       )}
 
-      {step === 'newPassword' && (
-        <form onSubmit={handlePasswordReset}>
+      {isOtpVerified && (
+        <div>
+          <h2>Change Password</h2>
           <input
             type='password'
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             placeholder='Enter new password'
-            required
           />
-          <button type='submit'>Reset Password</button>
-        </form>
+          <button onClick={handleChangePassword}>Change Password</button>
+        </div>
       )}
     </div>
   );
