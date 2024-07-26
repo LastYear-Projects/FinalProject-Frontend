@@ -112,5 +112,25 @@
     "העדפות משתמש",
     "Préférences de l'utilisateur",
     "用户偏好"
+  ],
+  "Reset Password": [
+    "Reset Password",
+    "איפוס סיסמה",
+    "Réinitialiser le mot de passe",
+    "重置密码"
+  ],
+  "Send OTP": ["Send OTP", "שלח קוד חד פעמי", "Envoyer OTP", "发送一次性密码"],
+  "OTP": ["OTP", "קוד חד פעמי", "Code à usage unique", "一次性代码"],
+  "Verify OTP": [
+    "Verify OTP",
+    "אימות קוד חד פעמי",
+    "Vérifier OTP",
+    "验证一次性密码"
+  ],
+  "Change Password": [
+    "Change Password",
+    "שינוי סיסמה",
+    "Changer le mot de passe",
+    "更改密码"
   ]
 }
