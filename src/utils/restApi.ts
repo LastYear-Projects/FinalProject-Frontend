@@ -35,7 +35,7 @@ const axiosRequest = async <T>({
     const response = await axios(requestConfig);
     return response;
   } catch (e: any) {
-    console.error(e?.message);
+    return e?.response;
   }
   return {} as AxiosResponse;
 };

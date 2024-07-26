@@ -14,8 +14,8 @@ import {
   useTheme,
 } from '@mui/material';
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
-import { handleLogin } from '../../utils/utils';
-import { useIsAuth } from '../../store/store';
+import { onHandleSubmit } from '../../utils/utils';
+import { useIsAuth, useUser } from '../../store/store';
 
 // Define Zod schema
 const schema = z.object({
@@ -28,6 +28,7 @@ export type SignInType = z.infer<typeof schema>;
 const SignIn = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { setUser } = useUser();
   const theme = useTheme();
   const {
     control,
@@ -41,14 +42,20 @@ const SignIn = () => {
       password: '',
     },
   });
-  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAuthenticate);
   const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
 
   const onSubmit = async (data: SignInType) => {
-    await handleLogin(data.email, data.password);
-    setIsAuthenticate(true);
-    navigate('/');
-    reset();
+    const email = data.email;
+    const password = data.password;
+    await onHandleSubmit({
+      email,
+      password,
+      setIsAuthenticate,
+      setUser,
+      navigate,
+      reset,
+    });
   };
 
   if (isAuthenticate) {

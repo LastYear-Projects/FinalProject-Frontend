@@ -42,10 +42,10 @@ export const useCreditCard = create<CreditCardState>((set) => ({
 
 export type IsAuth = {
   isAuthenticate: boolean;
-  setIsAutenticate: (isAuthenticate: boolean) => void;
+  setIsAuthenticate: (isAuthenticate: boolean) => void;
 };
 
 export const useIsAuth = create<IsAuth>((set) => ({
   isAuthenticate: false,
-  setIsAutenticate: (isAuthenticate) => set({ isAuthenticate }),
+  setIsAuthenticate: (isAuthenticate) => set({ isAuthenticate }),
 }));

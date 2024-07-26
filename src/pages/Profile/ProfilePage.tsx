@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Box, CircularProgress, Typography, useTheme } from '@mui/material';
+import { useState } from 'react';
+import { Box, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useCreditCardsQuery, useUserQuery } from '../../hooks/useStores';
+import { useCreditCardsQuery } from '../../hooks/useStores';
 import { UserType } from '../../globalTypes';
-import { useCreditCard } from '../../store/store';
+import { useCreditCard, useUser } from '../../store/store';
 import ProfileInfo from './sections/ProfileInfo';
 import CreditCardSection from './sections/CreditCardSection';
 import AddNewCardsSection from './sections/AddNewCardsSection';
 
 const ProfilePage = () => {
-  const token = localStorage.getItem('token');
-  const { isLoading: isUserLoading } = useUserQuery(token ?? '');
-  const currentUser = useUserQuery(token ?? '').data;
-
   const { isLoading: isFetchAllCardsLoading } = useCreditCardsQuery();
   const creditCards = useCreditCard((state) => state.creditCards);
+
+  const currentUser = useUser((state) => state.user);
 
   const theme = useTheme();
   const [data, setData] = useState<UserType | undefined>(currentUser);
@@ -29,13 +27,6 @@ const ProfilePage = () => {
       !currentUser?.creditCards?.some((userCard) => userCard._id === card._id)
   );
 
-  useEffect(() => {
-    if (currentUser) {
-      setData(currentUser);
-      setNewData(currentUser);
-    }
-  }, [currentUser]);
-
   const handleSaveNewData = () => {
     if (newData) {
       setData(newData);
@@ -48,9 +39,7 @@ const ProfilePage = () => {
     setIsEditing(false);
   };
 
-  return isUserLoading ? (
-    <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
-  ) : (
+  return (
     <Box
       sx={{
         display: 'flex',

@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import Loader from '../../../component/loader/Loader';
 
 const LoadingSection = ({
   theme,
@@ -27,7 +28,7 @@ const LoadingSection = ({
     >
       {t(message)}
     </Typography>
-    <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
+    <Loader />
   </Box>
 );
 

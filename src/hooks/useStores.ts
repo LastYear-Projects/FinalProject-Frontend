@@ -28,50 +28,28 @@ export const useStoresQuery = () => {
   });
 };
 
-const fetchUser = async (token: string): Promise<UserType> => {
+const fetchUser = async (): Promise<any> => {
   try {
     //TODO - implement the user endpoint
-    // const response = await axios.get(`${getBaseUrl()}/user/${token}`);
-    // return response.data;
-    return {
-      _id: '668c444743aa2aa364d796a2',
-      firstName: 'Michael',
-      lastName: 'Johnson',
-      email: 'michael.johnson@example.com',
-      creditCards: [
-        {
-          _id: '6658b67e892bce96bd5d588d',
-          cardName: 'Bit',
-          pointValue: 0,
-          cardBrand: 'MasterCard',
-        },
-        {
-          _id: '6658b688892bce96bd5d588f',
-          cardName: 'I Need It',
-          pointValue: 3,
-          cardBrand: 'MasterCard',
-        },
-      ],
-      userPreferences: {
-        profitType: 'lowestPrice',
-        cardsPreference: [],
-      },
-    };
+    return axiosRequest({
+      url: '/auth/',
+      method: 'GET',
+    });
   } catch (e: any) {
     console.error(e?.message);
   }
   return {} as UserType;
 };
 
-export const useUserQuery = (token: string) => {
+export const useUserQuery = () => {
   const setUser = useUser((state) => state.setUser);
 
   return useQuery({
-    queryKey: ['user', token],
+    queryKey: ['user'],
     queryFn: async () => {
-      return fetchUser(token).then((data) => {
+      return fetchUser().then((data) => {
         setUser(data);
-        return data;
+        return data.data;
       });
     },
   });

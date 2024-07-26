@@ -27,7 +27,7 @@ const DropDownMenu = ({ settings }: DropDownMenu) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
-  const setIsAuthenticate = useIsAuth((state) => state.setIsAutenticate);
+  const setIsAuthenticate = useIsAuth((state) => state.setIsAuthenticate);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null

@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 import { useStore } from '../../../store/store';
 import { fetchStores } from '../../../hooks/useStores';
 import { onKeyPress, toastify } from '../../../utils/utils';
+import Loader from '../../../component/loader/Loader';
 
 const StoreInfoSection = ({
   storeId,
@@ -29,7 +23,6 @@ const StoreInfoSection = ({
   const currentStore = useStore((state) => state.getStoreById(storeId!));
   const setStores = useStore((state) => state.setStores);
 
-  const theme = useTheme();
   const { t } = useTranslation();
 
   const onSubmit = () => {
@@ -64,7 +57,7 @@ const StoreInfoSection = ({
   }, [currentStore, setStores]);
 
   return isLoading ? (
-    <CircularProgress sx={{ color: theme.palette.secondary.contrastText }} />
+    <Loader />
   ) : (
     <Box
       sx={{

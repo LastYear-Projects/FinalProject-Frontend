@@ -1,7 +1,8 @@
 import { Bounce, toast, ToastOptions } from 'react-toastify';
-import { ToastifyProps } from '../globalTypes';
+import { ToastifyProps, UserType } from '../globalTypes';
 import { SignUpType } from '../pages/Signup/SignupPage';
 import axiosRequest from './restApi';
+import { NavigateFunction } from 'react-router';
 
 export const isHebrew = (text: string) => {
   return /[\u0590-\u05FF]/.test(text);
@@ -106,6 +107,17 @@ export const handleLogin = async (email: string, password: string) => {
       method: 'POST',
       data: { email, password },
     });
+    if (!response?.data?.token) {
+      console.log(response);
+
+      toastify({
+        type: 'error',
+        message: response?.data?.error,
+        position: 'top-right',
+      });
+      return false;
+    }
+
     const token = response.data.token;
     localStorage.setItem('token', token);
     toastify({
@@ -113,11 +125,50 @@ export const handleLogin = async (email: string, password: string) => {
       message: 'Login successful',
       position: 'top-right',
     });
+    return true;
   } catch (e: any) {
+    console.log('here?');
+
     toastify({
       type: 'error',
       message: e?.response?.data?.error,
       position: 'top-right',
     });
   }
+};
+
+export const checkAuthStatus = async () => {
+  const token = localStorage.getItem('token');
+  if (!token) return false;
+  return true;
+};
+
+export const onHandleSubmit = async ({
+  email,
+  password,
+  setIsAuthenticate,
+  setUser,
+  navigate,
+  reset,
+}: {
+  email: string;
+  password: string;
+  setIsAuthenticate: (isAuthenticate: boolean) => void;
+  setUser: (user: UserType) => void;
+  navigate: NavigateFunction;
+  reset: any;
+}) => {
+  const isLoggedIn = await handleLogin(email, password);
+  if (!isLoggedIn) return;
+  setIsAuthenticate(true);
+
+  const response = await axiosRequest({
+    url: '/auth/',
+    method: 'GET',
+  });
+  if (!response?.data) return;
+  setUser(response.data);
+
+  navigate('/');
+  reset();
 };
