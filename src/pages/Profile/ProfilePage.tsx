@@ -7,12 +7,15 @@ import { useCreditCard, useUser } from '../../store/store';
 import ProfileInfo from './sections/ProfileInfo';
 import CreditCardSection from './sections/CreditCardSection';
 import AddNewCardsSection from './sections/AddNewCardsSection';
+import axiosRequest from '../../utils/restApi';
+import { toastify } from '../../utils/utils';
 
 const ProfilePage = () => {
   const { isLoading: isFetchAllCardsLoading } = useCreditCardsQuery();
   const creditCards = useCreditCard((state) => state.creditCards);
 
   const currentUser = useUser((state) => state.user);
+  const setUser = useUser((state) => state.setUser);
 
   const theme = useTheme();
   const [data, setData] = useState<UserType | undefined>(currentUser);
@@ -27,10 +30,34 @@ const ProfilePage = () => {
       !currentUser?.creditCards?.some((userCard) => userCard._id === card._id)
   );
 
-  const handleSaveNewData = () => {
+  const handleSaveNewData = async () => {
     if (newData) {
-      setData(newData);
-      setIsEditing(false);
+      const originalCreditCards = newData.creditCards;
+      const mappedCreditCards = originalCreditCards.map((card) => card._id);
+      const updatedData = {
+        ...newData,
+        creditCards: mappedCreditCards,
+      };
+
+      const response = await axiosRequest({
+        url: '/users/',
+        method: 'PUT',
+        data: { userId: updatedData._id, ...updatedData },
+      });
+
+      if (response.status === 200) {
+        const newUpdatedData = { ...newData, creditCards: originalCreditCards };
+        setData(newUpdatedData);
+        setNewData(newUpdatedData);
+        setUser(newUpdatedData);
+        setIsEditing(false);
+      } else {
+        toastify({
+          message: 'Something wrong',
+          type: 'error',
+          position: 'top-right',
+        });
+      }
     }
   };
 

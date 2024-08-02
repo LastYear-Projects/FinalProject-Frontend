@@ -13,13 +13,13 @@ const AuthCheck: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('token');
         const response = await axiosRequest({
           url: '/auth/',
           method: 'GET',
         });
+
         if (!response?.data) return;
-        setIsAuthenticate(!!token);
+        setIsAuthenticate(response?.status === 400 ? false : true);
         setUser(response.data);
       } catch (e: any) {
         toastify({ type: 'error', message: e?.message, position: 'top-right' });

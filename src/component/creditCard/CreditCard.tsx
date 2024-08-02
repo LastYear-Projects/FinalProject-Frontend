@@ -2,6 +2,8 @@ import { Add as AddIcon, Cancel as CancelIcon } from '@mui/icons-material';
 import { Box, IconButton, Typography, styled } from '@mui/material';
 import { isHebrew } from '../../utils/utils';
 import { CardKeys, Cards } from '../../globalTypes';
+import { useUser } from '../../store/store';
+import axiosRequest from '../../utils/restApi';
 
 const BoxContainer = styled(Box, {
   shouldForwardProp: (props) => props !== 'background' && props !== 'textColor',
@@ -44,14 +46,59 @@ const CreditCard = ({
   cancelButton = false,
   addButton = false,
 }: CreditCardProps) => {
-  const handleRemoveCard = (cardId: string) => {
-    //TODO -> remove from the db and from the user card list.
-    console.log(`${cardId} Removed`);
+  const { user, setUser } = useUser();
+  const handleRemoveCard = async (cardId: string) => {
+    const newUser = user.creditCards.filter((card) => card._id !== cardId);
+    const originalCreditCards = newUser;
+    const mappedCreditCards = newUser.map((card) => card._id);
+
+    const updatedData = {
+      ...user,
+      creditCards: mappedCreditCards,
+    };
+
+    const response = await axiosRequest({
+      url: '/users/',
+      method: 'PUT',
+      data: { userId: user._id, ...updatedData },
+    });
+
+    const lastUser = { ...updatedData, creditCards: originalCreditCards };
+    if (response.status === 200) {
+      setUser(lastUser);
+    }
   };
 
-  const handleAddCard = (cardId: string) => {
-    //TODO -> add the card to the db and to the user card list.
-    console.log(`${cardId} Added`);
+  const handleAddCard = async (cardId: string) => {
+    if (user) {
+      const mappedCreditCards = user.creditCards.map((card) => card._id);
+      const newCreditCards = [...mappedCreditCards, cardId];
+
+      const response = await axiosRequest({
+        url: '/users/',
+        method: 'PUT',
+        data: { userId: user._id, creditCards: newCreditCards },
+      });
+
+      if (response.status === 200) {
+        const populateCreditCards = await Promise.all(
+          newCreditCards.map(async (creditCardId) => {
+            const cardResponse = await axiosRequest({
+              url: `/cards/${creditCardId}`,
+              method: 'GET',
+            });
+            return cardResponse.data;
+          })
+        );
+
+        const newUser = {
+          ...user,
+          creditCards: populateCreditCards,
+        };
+
+        setUser(newUser);
+      }
+    }
   };
 
   return (
