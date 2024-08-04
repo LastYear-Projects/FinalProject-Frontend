@@ -68,7 +68,12 @@ const StoreInfoSection = ({
         flexDirection: 'column',
       }}
     >
-      <img src={currentStore?.businessImage} alt={currentStore?.businessName} />
+      <img
+        src={currentStore?.businessImage}
+        alt={currentStore?.businessName}
+        width={150}
+        height={150}
+      />
       <Typography sx={{ marginTop: 4 }} variant='h4'>
         {t('Enter Transaction Price')}
       </Typography>
