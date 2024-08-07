@@ -13,6 +13,12 @@
     "En attente du résultat de l'algorithme...",
     "等待算法结果..."
   ],
+  "You need to add credit cards before using the algorithm": [
+    "You need to add credit cards before using the algorithm.",
+    ".עליך להוסיף כרטיסי אשראי לפני השימוש באלגוריתם",
+    "Vous devez ajouter des cartes de crédit avant d'utiliser l'algorithme.",
+    "您需要在使用该算法之前添加信用卡."
+  ],
   "FullName": ["FullName", "שם מלא", "Nom complet", "全名"],
   "CreditCards": ["Credit Cards", "כרטיסי אשראי", "Cartes de crédit", "信用卡"],
   "Add New Cards": [

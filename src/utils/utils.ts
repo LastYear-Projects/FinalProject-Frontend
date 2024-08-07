@@ -108,8 +108,6 @@ export const handleLogin = async (email: string, password: string) => {
       data: { email, password },
     });
     if (!response?.data?.token) {
-      console.log(response);
-
       toastify({
         type: 'error',
         message: response?.data?.error,
