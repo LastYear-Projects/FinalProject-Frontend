@@ -105,8 +105,8 @@ const StoreCard = ({
           </Box>
         </StyledCardContent>
         <Divider />
-        <StyledButton fullWidth>{t('Choose Store')}</StyledButton>
       </CardActionArea>
+      <StyledButton fullWidth>{t('Choose Store')}</StyledButton>
     </StyledCardContainer>
   );
 };
