@@ -71,7 +71,12 @@ const StoreInfoSection = ({
         flexDirection: 'column',
       }}
     >
-      <img src={currentStore?.businessImage} alt={currentStore?.businessName} />
+      <img
+        width={250}
+        height={250}
+        src={currentStore?.businessImage}
+        alt={currentStore?.businessName}
+      />
       {user?.creditCards?.length === 0 ? (
         <Box sx={{ textAlign: 'center' }}>
           <Typography

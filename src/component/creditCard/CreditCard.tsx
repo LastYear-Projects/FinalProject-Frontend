@@ -121,9 +121,7 @@ const CreditCard = ({
         {'**** **** **** 0123'}
       </Typography>
       <FlexBox>
-        <Typography variant='body1'>
-          {'User Name from token | Nothing'}
-        </Typography>
+        <Typography variant='body1'>{user?.firstName}</Typography>
       </FlexBox>
       <Box
         sx={{
