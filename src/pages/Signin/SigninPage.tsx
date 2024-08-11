@@ -134,7 +134,10 @@ const SignIn = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <NavLink style={{ color: theme.palette.secondary.main }} to='/'>
+              <NavLink
+                style={{ color: theme.palette.secondary.main }}
+                to='/reset-password'
+              >
                 {t('Forgot password?')}
               </NavLink>
             </Grid>
