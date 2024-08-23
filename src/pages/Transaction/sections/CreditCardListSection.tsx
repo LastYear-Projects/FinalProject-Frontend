@@ -13,13 +13,13 @@ const CreditCardListSection = ({ creditCards }) => {
             <Box>
               <Typography variant='body1' align='center'>
                 {card.grade
-                  ? `Grade: ${convertToNumber(card.grade)}₪`
-                  : '0.00₪'}
+                  ? `Grade: ${convertToNumber(card.grade) ?? '0.00₪'}₪`
+                  : 'Grade: 0.00₪'}
               </Typography>
               <Typography variant='body1' align='center'>
-                {card.profit
+                {card.profit && Number(card.profit) !== 0
                   ? `Profit: ${convertToNumber(card.profit)}₪`
-                  : '0.00₪'}
+                  : 'Profit: 0.00₪'}
               </Typography>
               <CreditCard {...card} cardId={card._id} />
             </Box>
