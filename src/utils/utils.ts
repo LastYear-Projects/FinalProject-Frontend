@@ -170,3 +170,15 @@ export const onHandleSubmit = async ({
   navigate('/');
   reset();
 };
+
+export const reverseHebrewInMixedText = (text: string): string => {
+  const hebrewRegex = /[\u0590-\u05FF]/;
+  const englishRegex = /[a-zA-Z]/;
+
+  if (hebrewRegex.test(text) && englishRegex.test(text)) {
+    return text.replace(/[\u0590-\u05FF]+/g, (hebrewMatch) => {
+      return hebrewMatch.split('').reverse().join('');
+    });
+  }
+  return text;
+};

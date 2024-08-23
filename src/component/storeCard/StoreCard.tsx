@@ -12,7 +12,10 @@ import {
   Card,
   Divider,
 } from '@mui/material';
-import { checkHebrewDirection } from '../../utils/utils';
+import {
+  checkHebrewDirection,
+  reverseHebrewInMixedText,
+} from '../../utils/utils';
 import { STYLES } from '../../theme';
 
 const StyledCardContainer = styled(Card)(({ theme }) => ({
@@ -88,7 +91,7 @@ const StoreCard = ({
               variant='h5'
               component='div'
             >
-              {title}
+              {reverseHebrewInMixedText(title)}
             </Typography>
             <Typography
               className='card-content'
