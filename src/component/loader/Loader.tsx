@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTheme, CircularProgress } from '@mui/material';
 
 const Loader = () => {

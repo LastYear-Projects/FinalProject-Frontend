@@ -1,4 +1,3 @@
-import React from 'react';
 import { Box, Grid, styled } from '@mui/material';
 import StoreCard, {
   StoreCardProps,
