@@ -61,7 +61,7 @@ const MdNavbar = ({ pages }: MdNavbarProps) => {
             margin: '0 1rem',
           }}
           alt='SwipeAdvisor'
-          src='../../../assets/SwipeAdvisor.jpg'
+          src='https://github.com/LastYear-Projects/FinalProject-Frontend/blob/main/assets/SwipeAdvisor.jpg?raw=true'
         />
       </BoxContainer>
       <BoxContent>
