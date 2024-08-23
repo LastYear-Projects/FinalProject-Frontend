@@ -8,7 +8,6 @@ import {
   styled,
   Select,
   MenuItem,
-  SelectChangeEvent,
 } from '@mui/material';
 import {
   Cancel as CancelIcon,
@@ -47,9 +46,7 @@ const ProfileInfo: React.FC<ProfileInfoProps> = ({
   handleCancelEdit,
 }) => {
   const { t } = useTranslation();
-  const onChange = (
-    event: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent
-  ) => {
+  const onChange = (event: any) => {
     const { name, value } = event.target;
 
     setNewData((prev) => {
