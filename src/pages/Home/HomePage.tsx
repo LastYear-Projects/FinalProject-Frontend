@@ -35,11 +35,14 @@ const HomePage = () => {
 
     setFilteredData(
       stores.filter((store) => {
-        const lowerTitle = store.businessName.toLowerCase();
-        const lowerCategory = store.businessCategory.toLowerCase();
+        console.log(store);
+
+        const lowerTitle = store?.businessName?.toLowerCase();
+        const lowerCategory = store?.businessCategory?.toLowerCase();
 
         return (
-          lowerTitle.includes(lowerValue) || lowerCategory.includes(lowerValue)
+          lowerTitle?.includes(lowerValue) ||
+          lowerCategory?.includes(lowerValue)
         );
       })
     );
