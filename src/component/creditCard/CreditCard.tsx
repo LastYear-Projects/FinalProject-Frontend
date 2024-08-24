@@ -50,7 +50,7 @@ const CreditCard = ({
   const handleRemoveCard = async (cardId: string) => {
     const newUser = user.creditCards.filter((card) => card._id !== cardId);
     const originalCreditCards = newUser;
-    const mappedCreditCards = newUser.map((card) => card._id);
+    const mappedCreditCards = newUser?.map((card) => card._id);
 
     const updatedData = {
       ...user,
@@ -71,7 +71,7 @@ const CreditCard = ({
 
   const handleAddCard = async (cardId: string) => {
     if (user) {
-      const mappedCreditCards = user.creditCards.map((card) => card._id);
+      const mappedCreditCards = user?.creditCards?.map((card) => card._id);
       const newCreditCards = [...mappedCreditCards, cardId];
 
       const response = await axiosRequest({
@@ -82,7 +82,7 @@ const CreditCard = ({
 
       if (response.status === 200) {
         const populateCreditCards = await Promise.all(
-          newCreditCards.map(async (creditCardId) => {
+          newCreditCards?.map(async (creditCardId) => {
             const cardResponse = await axiosRequest({
               url: `/cards/${creditCardId}`,
               method: 'GET',
