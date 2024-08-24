@@ -70,7 +70,6 @@ const BoxContent = styled(Box)({
 const queryClient = new QueryClient();
 
 const App = () => {
-  //For Deploy ONLY!!!!
   setInterval(async () => {
     await fetchStores();
   }, 1 * 60 * 1000);
