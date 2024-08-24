@@ -16,6 +16,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AuthCheck from './pages/AuthCheck/AuthCheck';
 import ResetPassword from './pages/ResetPassword/ResetPasswordPage';
+import { fetchStores } from './hooks/useStores';
 
 const router = [
   {
@@ -69,6 +70,11 @@ const BoxContent = styled(Box)({
 const queryClient = new QueryClient();
 
 const App = () => {
+  //For Deploy ONLY!!!!
+  setInterval(async () => {
+    await fetchStores();
+  }, 1 * 60 * 1000);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
