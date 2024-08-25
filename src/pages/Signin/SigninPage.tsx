@@ -1,3 +1,5 @@
+
+import {useState} from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +13,7 @@ import {
   Box,
   Typography,
   Container,
+  CircularProgress,
   useTheme,
 } from '@mui/material';
 import { LockOutlined as LockOutlinedIcon } from '@mui/icons-material';
@@ -26,6 +29,7 @@ const schema = z.object({
 export type SignInType = z.infer<typeof schema>;
 
 const SignIn = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { setUser } = useUser();
@@ -46,7 +50,9 @@ const SignIn = () => {
   const isAuthenticate = useIsAuth((state) => state.isAuthenticate);
 
   const onSubmit = async (data: SignInType) => {
-    const email = data.email;
+    setLoading(true);
+    try{
+      const email = data.email;
     const password = data.password;
     await onHandleSubmit({
       email,
@@ -56,6 +62,9 @@ const SignIn = () => {
       navigate,
       reset,
     });
+  }finally {
+      setLoading(false); // Stop spinner
+    };
   };
 
   if (isAuthenticate) {
@@ -129,8 +138,9 @@ const SignIn = () => {
               mt: 3,
               mb: 2,
             }}
+            disabled={loading}
           >
-            {t('SignIn')}
+            {loading ? <CircularProgress size={24} /> : t('SignIn')}
           </Button>
           <Grid container>
             <Grid item xs>
