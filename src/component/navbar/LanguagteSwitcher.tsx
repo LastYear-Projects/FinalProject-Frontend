@@ -24,13 +24,13 @@ const LanguageSwitcher: React.FC = () => {
   const getLanguageLabel = (lang: string) => {
     switch (lang) {
       case 'en':
-        return 'en';
+        return ' En';
       case 'he':
-        return 'he';
+        return 'He';
       case 'fr':
-        return 'fr';
+        return 'Fr';
       case 'zh':
-        return 'ch';
+        return 'Ch';
     }
   };
 
