@@ -27,9 +27,8 @@ const StoreInfoSection = ({
   const theme = useTheme();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const displayValue = transactionPrice ?? '';
   const onSubmit = () => {
-    if (displayValue === 0 || displayValue === "") {
+    if (transactionPrice === 0) {
       toastify({
         type: 'error',
         message: 'Please enter a valid price',
@@ -110,7 +109,7 @@ const StoreInfoSection = ({
             label={t('Enter Transaction Price')}
             variant='outlined'
             type='number'
-            value={displayValue}
+            value={transactionPrice ?? ""}
             onChange={(e) => {
               const value = Number(e.target.value);
               if (value >= 0) {
