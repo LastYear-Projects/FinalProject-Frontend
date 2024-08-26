@@ -103,10 +103,23 @@ const StoreInfoSection = ({
             {t('Enter Transaction Price')}
           </Typography>
           <TextField
-            onKeyDown={(e) => onKeyPress(e, 'Enter', onSubmit)}
+              onKeyDown={(e) => {
+                if (
+                    !/[0-9]/.test(e.key) &&
+                    e.key !== 'Backspace' &&
+                    e.key !== 'Delete' &&
+                    e.key !== 'ArrowLeft' &&
+                    e.key !== 'ArrowRight' &&
+                    e.key !== 'Tab' &&
+                    e.key !== 'Enter'
+                ) {
+                  e.preventDefault();
+                }
+                onKeyPress(e, 'Enter', onSubmit);
+              }}
             sx={{ marginTop: 4 }}
             id='outlined-basic'
-            label={t('Enter Transaction Price')}
+            label={t('Enter Price')}
             variant='outlined'
             type='number'
             placeholder="Enter price here"
