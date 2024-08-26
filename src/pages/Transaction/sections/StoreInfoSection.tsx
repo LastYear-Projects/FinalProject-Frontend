@@ -109,7 +109,8 @@ const StoreInfoSection = ({
             label={t('Enter Transaction Price')}
             variant='outlined'
             type='number'
-            value={transactionPrice}
+            placeholder="Enter price here"
+            value={transactionPrice !== 0 ? transactionPrice : ''}
             onChange={(e) => {
               const value = Number(e.target.value);
               if (value >= 0) setTransactionPrice(value);
