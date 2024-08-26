@@ -11,15 +11,15 @@ const CreditCardListSection = ({ creditCards }) => {
         creditCards?.map((card: CreditCardType) => (
           <Grid item xs={12} display='flex' justifyContent='center'>
             <Box>
-              <Typography variant='body1' align='center'>
-                {card.grade
-                  ? `Grade: ${convertToNumber(card.grade) ?? '0.00₪'}₪`
-                  : 'Grade: 0.00₪'}
-              </Typography>
+              {/*<Typography variant='body1' align='center'>*/}
+              {/*  {card.grade*/}
+              {/*    ? `Grade: ${convertToNumber(card.grade) ?? '0.00₪'}₪`*/}
+              {/*    : 'Grade: 0.00₪'}*/}
+              {/*</Typography>*/}
               <Typography variant='body1' align='center'>
                 {card.profit && Number(card.profit) !== 0
-                  ? `Profit: ${convertToNumber(card.profit)}₪`
-                  : 'Profit: 0.00₪'}
+                  ? `You Save: ${convertToNumber(card.profit)}₪`
+                  : 'No benefits found for this card'}
               </Typography>
               <CreditCard {...card} cardId={card._id} />
             </Box>
